@@ -2,7 +2,8 @@
 
 Simple editor to capture and store knowledge.
 
-# To build the appplication
+### To build the appplication
  
 `npm install`
+
 `npm run dist`
