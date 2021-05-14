@@ -1,0 +1,208 @@
+'use strict';
+
+const config = require('./config.json');
+
+const electron = require('electron');
+const { app } = electron;
+const { protocol } = electron;
+const { ipcMain } = electron;
+const { dialog } = electron;
+const { shell } = electron;
+const { webContents } = electron;
+
+const BrowserWindow = electron.BrowserWindow;
+
+const mime = require('mime');
+const path = require('path');
+const url = require('url');
+const fs = require('fs');
+
+var mainWindow = null;
+
+app.allowRendererProcessReuse = true;
+
+function createWindow() {
+
+    mainWindow = new BrowserWindow({
+        width: 1305,
+        height: 800,
+        resizable: true,
+        frame: false,
+        autoHideMenuBar: true,
+
+        webPreferences: {
+            nodeIntegration: true
+        }
+
+    });
+
+    if (config.mode == "debug") {
+        mainWindow.webContents.openDevTools();
+    }
+
+    mainWindow.setMenu(null);
+    mainWindow.setTitle('Knowledge Manager') // Window name isn't this
+    mainWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'index.html'),
+        protocol: 'html',
+        slashes: true
+    }))
+
+    mainWindow.on('closed', () => {
+        mainWindow = null
+    })
+
+}
+
+app.on('ready', function() {
+
+    protocol.registerBufferProtocol('html', function(request, callback) {
+        let parsedUrl = require('url').parse(request.url);
+        var url = path.normalize(request.url.replace('html:///', ''));
+        let ext = path.extname(url);
+
+        if (fs.existsSync(url)) {
+
+            let output = fs.readFileSync(url);
+
+            return callback({ data: output, mimeType: mime.getType(ext) });
+
+        } else {
+            console.log("im here a: " + url);
+
+            let updatedUrl = url.replace("assets\\javascripts", "node_modules");
+
+            console.log(updatedUrl + ".js");
+
+            let output = fs.readFileSync(updatedUrl + ".js");
+
+            console.log(output);
+
+            return callback({ data: output, mimeType: mime.getType(".js") });
+
+
+        }
+
+    });
+
+    createWindow();
+
+});
+
+app.on('window-all-closed', () => {
+    app.quit()
+})
+
+app.on('activate', () => {
+    if (mainWindow === null) {
+        createWindow()
+    }
+
+});
+ipcMain.on('quit', function(event, arg) {
+
+    app.quit();
+
+});
+
+ipcMain.on('minimize', function(event, arg) {
+
+    mainWindow.minimize();
+
+
+});
+
+ipcMain.on('isMaximized', function(event, arg) {
+
+    event.returnValue = mainWindow.isMaximized();
+
+});
+
+ipcMain.on('maximize', function(event, arg) {
+
+    mainWindow.maximize();
+
+});
+
+ipcMain.on('unmaximize', function(event, arg) {
+
+    mainWindow.unmaximize();
+
+});
+
+ipcMain.on('showPrintDialog', async function(event, arg) {
+    var result = await dialog.showSaveDialog({
+            properties: [
+                { createDirectory: true }
+            ],
+            filters: [
+                { name: 'pdf', extensions: ['pdf'] },
+                { name: 'All Files', extensions: ['*'] }
+            ]
+        }
+
+    );
+
+    event.returnValue = result;
+
+});
+
+ipcMain.on('printToPdf', function(event, arg) {
+    var filePath = arg;
+
+    let win = BrowserWindow.getFocusedWindow();
+
+    //Use default printing options
+    win.webContents.printToPDF({}).then(data => {
+
+        fs.writeFile(filePath, data, function(error) {
+            event.sender.send('wrote-pdf', filePath)
+        })
+
+    })
+
+});
+
+ipcMain.on('showOpenDialog', async function(event) {
+    var result = await dialog.showOpenDialog({
+            properties: [
+                { createDirectory: true }
+            ],
+            filters: [
+                { name: 'zip', extensions: ['zip'] },
+                { name: 'All Files', extensions: ['*'] }
+            ]
+        }
+
+    );
+
+    event.returnValue = result;
+
+});
+
+ipcMain.on('showSaveDialog', async function(event, arg) {
+    var filename = arg;
+
+    var result = await dialog.showSaveDialog({
+            defaultPath: filename,
+            properties: [
+                { createDirectory: true }
+            ],
+            filters: [
+                { name: 'zip', extensions: ['zip'] },
+                { name: 'All Files', extensions: ['*'] }
+            ]
+        }
+
+    );
+
+    event.returnValue = result;
+
+});
+
+ipcMain.on('openUrl', function(event, arg) {
+    var url = arg;
+
+    shell.openExternal(url);
+
+});
