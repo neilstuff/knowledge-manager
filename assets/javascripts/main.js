@@ -1,10 +1,3 @@
-const { ipcRenderer } = require('electron');
-
-const zip = require('jszip');
-const $ = require('jquery');
-
-const fs = require('fs');
-
 let documents = {};
 let markers = {};
 let format = {};
@@ -25,8 +18,8 @@ const extractFilename = (path) => {
 
 $.fn.Load = (filepath) => {
 
-    fs.readFile(filepath, function(err, data) {
-        var zipFile = new zip();
+    window.api.fs().readFile(filepath, function(err, data) {
+        var zipFile = new JSZip();
 
         zipFile.loadAsync(data).then(async function(zipFile) {
             documents = {};
@@ -191,7 +184,7 @@ $(async() => {
         event.preventDefault();
 
         if (event.target.id.includes('ck-editor')) {
-            ipcRenderer.send('openUrl', this.href);
+            window.api.openUrl(this.href);
         }
 
     });
@@ -250,32 +243,32 @@ $(async() => {
 
     $("#window-minimize").on('click', async(e) => {
 
-        ipcRenderer.send('minimize');
+        window.api.minimize();
 
     });
 
     $("#window-maximize").on('click', async(e) => {
-        var isMaximized = ipcRenderer.sendSync('isMaximized');
+        var isMaximized = window.api.isMaximized();
 
         if (!isMaximized) {
             $("#window-maximize").addClass("fa-window-restore");
             $("#window-maximize").removeClass("fa-square");
-            ipcRenderer.send('maximize');
+            window.api.maximize();
         } else {
             $("#window-maximize").removeClass("fa-window-restore");
             $("#window-maximize").addClass("fa-square");
-            ipcRenderer.send('unmaximize');
+            window.api.unmaximize();
         }
 
     });
 
     $("#quit").on('click', async(e) => {
 
-        ipcRenderer.send('quit');
+        window.api.quit();
 
     });
 
-    ipcRenderer.on('wrote-pdf', (event, path) => {
+    window.api.on('wrote-pdf', (event, path) => {
         $('#waitDialog').css('display', 'none');
 
         alert("PDF Written");
@@ -283,7 +276,7 @@ $(async() => {
 
     $('#open').on('click', (e) => {
 
-        let result = ipcRenderer.sendSync('showOpenDialog');
+        let result = window.api.showOpenDialog();
 
         if (!result.canceled) {
             let filepath = result.filePaths[0];
@@ -299,12 +292,12 @@ $(async() => {
     $('#save').on('click', (e) => {
         let fileUtil = new FileUtil(document);
 
-        let zipFile = new zip();
+        let zipFile = new JSZip();
         let folder = zipFile.folder('');
 
         $(this).Save(folder, tree.childNodes, true);
 
-        let result = ipcRenderer.sendSync('showSaveDialog', (filename == null ? 'fragments.zip' : filename));
+        let result = window.api.showSaveDialog((filename == null ? 'fragments.zip' : filename));
 
         if (!result.canceled) {
             filename = result.filePath;

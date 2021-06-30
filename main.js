@@ -9,6 +9,7 @@ const { ipcMain } = electron;
 const { dialog } = electron;
 const { shell } = electron;
 const { webContents } = electron;
+const { contextBridge } = electron;
 
 const BrowserWindow = electron.BrowserWindow;
 
@@ -18,8 +19,6 @@ const url = require('url');
 const fs = require('fs');
 
 var mainWindow = null;
-
-app.allowRendererProcessReuse = true;
 
 function createWindow() {
 
@@ -31,7 +30,10 @@ function createWindow() {
         autoHideMenuBar: true,
 
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: false,
+            contextIsolation: true,
+            enableRemoteModule: false,
+            preload: path.join(__dirname, "preload.js")
         }
 
     });
@@ -67,20 +69,6 @@ app.on('ready', function() {
 
             return callback({ data: output, mimeType: mime.getType(ext) });
 
-        } else {
-            console.log("im here a: " + url);
-
-            let updatedUrl = url.replace("assets\\javascripts", "node_modules");
-
-            console.log(updatedUrl + ".js");
-
-            let output = fs.readFileSync(updatedUrl + ".js");
-
-            console.log(output);
-
-            return callback({ data: output, mimeType: mime.getType(".js") });
-
-
         }
 
     });
@@ -99,6 +87,7 @@ app.on('activate', () => {
     }
 
 });
+
 ipcMain.on('quit', function(event, arg) {
 
     app.quit();

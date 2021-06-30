@@ -43,7 +43,7 @@
     },
     "devDependencies": {
         "webpack": "^4.41.2",
-        "electron": "^11.2.3",
+        "electron": "^13.1.4",
         "electron-builder": "^22.9.1"
     },
     "bugs": {
