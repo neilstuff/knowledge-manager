@@ -28,6 +28,9 @@ contextBridge.exposeInMainWorld(
         showSaveDialog: (filename) => {
             return ipcRenderer.sendSync('showSaveDialog', filename);
         },
+        showPrintDialog: (filename) => {
+            return ipcRenderer.sendSync('showPrintDialog');
+        },
         fs: () => {
             return fs
         },
