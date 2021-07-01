@@ -290,8 +290,6 @@ $(async() => {
     });
 
     $('#save').on('click', (e) => {
-        let fileUtil = new FileUtil(document);
-
         let zipFile = new JSZip();
         let folder = zipFile.folder('');
 
@@ -304,15 +302,20 @@ $(async() => {
 
             $('#filename').text(`- ${filename}`);
 
-            zipFile
-                .generateNodeStream({ streamFiles: true })
-                .pipe(fs.createWriteStream(filename))
-                .on('finish', function() {
-                    console.log("out.zip written.");
-                });
+            zipFile.generateAsync({type:"blob"}).then(async function (blob) { 
+                var reader = new FileReader();
 
+                reader.onloadend = function() {
+                    window.api.fs().writeFile(filename, new Uint8Array(reader.result), () => console.log("Knowledge Saved"));
+    
+                }
+          
+                reader.readAsArrayBuffer(blob);
+            }, function (err) {
+                alert(err);
+            });
+    
         }
-
 
     });
 

@@ -32,7 +32,7 @@ contextBridge.exposeInMainWorld(
             return ipcRenderer.sendSync('showPrintDialog');
         },
         fs: () => {
-            return fs
+            return fs;
         },
         on: (message, callback) => {
             ipcRenderer.on(message, (event, path) => {

@@ -60,7 +60,7 @@ app.on('ready', function() {
 
     protocol.registerBufferProtocol('html', function(request, callback) {
         let parsedUrl = require('url').parse(request.url);
-        var url = path.normalize(request.url.replace('html:///', ''));
+        var url = path.normalize(request.url.replace('html://', ''));
         let ext = path.extname(url);
 
         if (fs.existsSync(url)) {
@@ -154,9 +154,7 @@ ipcMain.on('printToPdf', function(event, arg) {
 
 ipcMain.on('showOpenDialog', async function(event) {
     var result = await dialog.showOpenDialog({
-            properties: [
-                { createDirectory: true }
-            ],
+            properties: [ 'openFile', 'openDirectory', 'createDirectory', 'promptToCreate'],
             filters: [
                 { name: 'zip', extensions: ['zip'] },
                 { name: 'All Files', extensions: ['*'] }
