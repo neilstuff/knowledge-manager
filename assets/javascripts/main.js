@@ -340,7 +340,7 @@ $(async() => {
     });
 
     $('#print').on('click', (e) => {
-        var result = ipcRenderer.sendSync('showPrintDialog');
+        var result = window.api.showPrintDialog();
 
         if (result.canceled) {
             return;
@@ -363,7 +363,8 @@ $(async() => {
 
             $('#print-area').html(text);
 
-            ipcRenderer.send('printToPdf', result.filePath);
+            window.api.printToPdf(result.filePath);
+            
         }, 100);
 
 

@@ -28,14 +28,18 @@ contextBridge.exposeInMainWorld(
         showSaveDialog: (filename) => {
             return ipcRenderer.sendSync('showSaveDialog', filename);
         },
-        showPrintDialog: (filename) => {
+        showPrintDialog: () => {
             return ipcRenderer.sendSync('showPrintDialog');
+        },
+        printToPdf: (filename) => {
+            return ipcRenderer.send('printToPdf', filename);
         },
         fs: () => {
             return fs;
         },
         on: (message, callback) => {
             ipcRenderer.on(message, (event, path) => {
+                console.log("received message");
                 callback()
             });
         },
@@ -43,4 +47,5 @@ contextBridge.exposeInMainWorld(
             console.log(message);
         }
     }
+
 );

@@ -17,6 +17,7 @@ const mime = require('mime');
 const path = require('path');
 const url = require('url');
 const fs = require('fs');
+const os = require('os');
 
 var mainWindow = null;
 
@@ -60,7 +61,8 @@ app.on('ready', function() {
 
     protocol.registerBufferProtocol('html', function(request, callback) {
         let parsedUrl = require('url').parse(request.url);
-        var url = path.normalize(request.url.replace('html://', ''));
+        var url = path.normalize(request.url.replace(os.type() == 'Windows_NT' ? 'html:///' : 'html://', ''));
+ 
         let ext = path.extname(url);
 
         if (fs.existsSync(url)) {
@@ -153,13 +155,19 @@ ipcMain.on('printToPdf', function(event, arg) {
 });
 
 ipcMain.on('showOpenDialog', async function(event) {
-    var result = await dialog.showOpenDialog({
-            properties: [ 'openFile', 'openDirectory', 'createDirectory', 'promptToCreate'],
+    var result = await dialog.showOpenDialog(os.type() == 'Windows_NT' ? {
+            properties: [ 'openDirectory', 'createDirectory'],
             filters: [
                 { name: 'zip', extensions: ['zip'] },
                 { name: 'All Files', extensions: ['*'] }
             ]
-        }
+        } : {
+            properties: [ 'openFile', 'openDirectory', 'createDirectory'],
+            filters: [
+                { name: 'zip', extensions: ['zip'] },
+                { name: 'All Files', extensions: ['*'] }
+            ]
+        }  
 
     );
 
