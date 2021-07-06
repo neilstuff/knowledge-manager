@@ -13,7 +13,7 @@
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/jszip/dist/jszip.min.js"></script>
     <script src="node_modules/@ckeditor/ckeditor5-build-decoupled-document/build/ckeditor.js"></script>
- 
+
     <script src="assets/javascripts/util/fileutil.js"></script>
     <script src="assets/javascripts/util/sdrag.js"></script>
     <script src="assets/javascripts/util/treeview.js"></script>
@@ -192,14 +192,14 @@
             </div>
 
             <div style="position:absolute; top:12px; left:280px; font-size:14px; font-style: normal;">
-                <label id="filename">-&nbsp[Untitled]</label>
+                <label id="filename" style="white-space: nowrap; overflow: hidden;text-overflow: ellipsis;">-&nbsp[Untitled]</label>
             </div>
 
             <div style="position:absolute; top:2px; left:10px; font-size:16px; font-weight: bold;">
                 <img src="assets/images/idea.svg" style="top:-5px; width:34px; height:34px;"></img>
             </div>
 
-            <div id="toolbar" style="position: absolute; top:5px; right:0px; padding-left:5px;">
+            <div id="toolbar" style="position: absolute; top:5px; right:0px; padding-left:5px; height:30px; background-color:white;">
                 <button class="button fas fa-minus fa-1x top-icon" id="window-minimize" style="-webkit-app-region: no-drag; margin-left:2px; font-size:12px; width:18px; height:18px;"></button>
                 <button class="button far fa-square fa-1x top-icon" id="window-maximize" style="-webkit-app-region: no-drag; margin-left:2px; font-size:12px; width:18px; height:18px;"></button>
                 <button class="button fas fa-times fa-1x top-icon" id="quit" style="-webkit-app-region: no-drag; margin-left:2px; font-size:12px; width:18px; height:18px;"></button>

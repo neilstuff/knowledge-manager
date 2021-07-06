@@ -20,7 +20,7 @@ const fs = require('fs');
 const os = require('os');
 
 var mainWindow = null;
- 
+
 function createWindow() {
 
     mainWindow = new BrowserWindow({
@@ -57,23 +57,17 @@ function createWindow() {
 
 }
 
-app.on('ready', async () => {
- 
+app.on('ready', () => {
+
     protocol.registerBufferProtocol('html', function(request, callback) {
-        let pathName = new URL(request.url).pathname;
-        let ext = path.extname(pathName);
- 
-        if (fs.existsSync(pathName)) {
- 
-            let output = fs.readFileSync(pathName);
 
-            return callback({ data: output, mimeType: mime.getType(ext) });
+        let pathName = (new URL(request.url).pathname).substring(os.platform() == 'win32' ? 1 : 0);
 
-        }
+        return callback({ data: fs.readFileSync(pathName), mimeType: mime.getType(path.extname(pathName)) });
 
     });
-      
-    await createWindow();
+
+    createWindow();
 
 });
 
@@ -97,7 +91,6 @@ ipcMain.on('quit', function(event, arg) {
 ipcMain.on('minimize', function(event, arg) {
 
     mainWindow.minimize();
-
 
 });
 
@@ -160,12 +153,12 @@ ipcMain.on('showOpenDialog', async function(event) {
                 { name: 'All Files', extensions: ['*'] }
             ]
         } : {
-            properties: [ 'openFile', 'openDirectory', 'createDirectory'],
+            properties: ['openFile', 'openDirectory', 'createDirectory'],
             filters: [
                 { name: 'zip', extensions: ['zip'] },
                 { name: 'All Files', extensions: ['*'] }
             ]
-        }  
+        }
 
     );
 
