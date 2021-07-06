@@ -20,7 +20,7 @@ const fs = require('fs');
 const os = require('os');
 
 var mainWindow = null;
-
+ 
 function createWindow() {
 
     mainWindow = new BrowserWindow({
@@ -57,25 +57,23 @@ function createWindow() {
 
 }
 
-app.on('ready', function() {
-
-    protocol.registerBufferProtocol('html', function(request, callback) {
-        let parsedUrl = require('url').parse(request.url);
-        var url = path.normalize(request.url.replace(os.type() == 'Windows_NT' ? 'html:///' : 'html://', ''));
+app.on('ready', async () => {
  
-        let ext = path.extname(url);
-
-        if (fs.existsSync(url)) {
-
-            let output = fs.readFileSync(url);
+    protocol.registerBufferProtocol('html', function(request, callback) {
+        let pathName = new URL(request.url).pathname;
+        let ext = path.extname(pathName);
+ 
+        if (fs.existsSync(pathName)) {
+ 
+            let output = fs.readFileSync(pathName);
 
             return callback({ data: output, mimeType: mime.getType(ext) });
 
         }
 
     });
-
-    createWindow();
+      
+    await createWindow();
 
 });
 

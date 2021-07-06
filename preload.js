@@ -34,6 +34,9 @@ contextBridge.exposeInMainWorld(
         printToPdf: (filename) => {
             return ipcRenderer.send('printToPdf', filename);
         },
+        openUrl: (url) => {
+            return ipcRenderer.send('openUrl', url);
+        },
         fs: () => {
             return fs;
         },
