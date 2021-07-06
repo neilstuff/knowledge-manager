@@ -154,7 +154,7 @@ ipcMain.on('printToPdf', function(event, arg) {
 
 ipcMain.on('showOpenDialog', async function(event) {
     var result = await dialog.showOpenDialog(os.type() == 'Windows_NT' ? {
-            properties: [ 'openDirectory', 'createDirectory'],
+            properties: ['createDirectory'],
             filters: [
                 { name: 'zip', extensions: ['zip'] },
                 { name: 'All Files', extensions: ['*'] }
