@@ -59,6 +59,28 @@ export const createToolbar = (options, execCommand) => {
     );
   }
 
+  // Font Size
+  if (options.fontsize !== NO) {
+    toolbar.insertAdjacentElement(
+      BEFORE_END,
+      createSelect(
+        'fontSize',
+        'Size',
+        [
+          { value: '1', text: 'Tiny' },
+          { value: '2', text: 'Small' },
+          { value: '3', text: 'Normal', selected: true},
+          { value: '4', text: 'Big' },
+          { value: '7', text: 'Huge' },
+        ],
+        execCommand
+      )
+    );
+  }
+
+   // Separator
+   toolbar.insertAdjacentElement(BEFORE_END, createSeparator());
+
   // Bold
   if (options.bold !== NO) {
     toolbar.insertAdjacentElement(
