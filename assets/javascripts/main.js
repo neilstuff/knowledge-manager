@@ -1,9 +1,10 @@
+import { transformToEditor } from './editor/editor.js'
+
 let documents = {};
 let markers = {};
 let format = {};
 
 let tree = null;
-let editor = null;
 
 let filename = null;
 
@@ -188,58 +189,8 @@ $(async() => {
         }
 
     });
-
-    DecoupledEditor.builtinPlugins.map(plugin => plugin.pluginName);
-
-    let promise = new Promise((resolve, reject) => {
-
-        DecoupledEditor
-            .create(document.querySelector('#editor'), {
-                toolbar: ['heading', 'fontFamily', 'fontSize', 'fontColor', 'fontBackgroundColor',
-                    '|', 'indent', 'outdent', 'alignment',
-                    '|', 'bold', 'italic', 'underline', 'strikeThrough',
-                    '|', 'link', 'bulletedList', 'numberedList', 'blockQuote',
-                    '|', 'imageUpload', 'insertTable', '|', 'undo', 'redo'
-                ],
-                heading: {
-                    options: [
-                        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-                        { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
-                        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
-                        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' }
-                    ]
-                },
-                table: {
-                    contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells'],
-                    tableToolbar: ['bold', 'italic']
-                },
-                extraPlugins: [Base64CustomUploadAdapterPlugin],
-
-            })
-            .then(editor => {
-                const toolbarContainer = document.querySelector('#toolbar-container');
-
-                toolbarContainer.appendChild(editor.ui.view.toolbar.element);
-
-                resolve(editor);
-
-            })
-            .catch(error => {
-                console.error(error);
-                reject();
-            });
-
-    });
-
-    editor = await promise;
-
-    editor.model.document.on('change:data', () => {
-        if (tree != null & tree.selectedNode != null) {
-
-            documents[tree.selectedNode.id] = editor.getData();
-        }
-
-    });
+ 
+    document.querySelectorAll('[data-tiny-editor]').forEach(transformToEditor);
 
     $("#window-minimize").on('click', async(e) => {
 

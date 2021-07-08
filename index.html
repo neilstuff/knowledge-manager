@@ -9,15 +9,14 @@
     <link rel="stylesheet" href="assets/styles/bubble.css">
     <link rel="stylesheet" href="assets/styles/treeview.css">
     <link rel="stylesheet" href="assets/styles/main.css">
+    <link rel="stylesheet" href="assets/styles/editor/style.css">
+    <link rel="stylesheet" href="assets/styles/editor/tags.css">
 
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/jszip/dist/jszip.min.js"></script>
-    <script src="node_modules/@ckeditor/ckeditor5-build-decoupled-document/build/ckeditor.js"></script>
-
     <script src="assets/javascripts/util/fileutil.js"></script>
     <script src="assets/javascripts/util/sdrag.js"></script>
     <script src="assets/javascripts/util/treeview.js"></script>
-    <script src="assets/javascripts/util/base64upload.js"></script>
     <script type="module" src="assets/javascripts/main.js"></script>
 </head>
 
@@ -225,7 +224,7 @@
         <div id="separator" style="position:absolute; top:60px; left:335px; width:8px; bottom: 10px; font-size:14px; overflow:hidden; cursor: col-resize"></div>
         <div id="details" class="details" style="position:absolute; top:40px; left:345px; right:10px; bottom: 10px; font-size:14px; overflow:hidden;">
             <div id="toolbar-container"></div>
-            <div id="editor-container" style="position:absolute; top:39px; left:0px; right:0px; bottom: 0px; overflow:auto; border: 1px solid rgba(0,0,0, 0.2); padding:5px;">
+            <div  data-tiny-editor id="editor-container" style="position:absolute; top:39px; left:0px; right:0px; bottom: 0px; overflow:auto; border: 1px solid rgba(0,0,0, 0.2); padding:5px;">
                 <div id="editor"></div>
             </div>
         </div>
