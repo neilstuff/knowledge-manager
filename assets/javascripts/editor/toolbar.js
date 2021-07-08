@@ -2,6 +2,7 @@ import { createSelect } from './select';
 import { createButton } from './button';
 import { createIcon } from './icon';
 import { createInput } from './input';
+import { createUpload } from './upload';
 import { BEFORE_END } from './constants';
 
 const NO = 'no';
@@ -232,7 +233,7 @@ export const createToolbar = (options, execCommand) => {
   // Separator
   toolbar.insertAdjacentElement(BEFORE_END, createSeparator());
 
-  // Clear formatting
+  // Insert Horizontal Rule
   if (options.horizontalLine !== NO) {
     toolbar.insertAdjacentElement(
       BEFORE_END,
@@ -240,6 +241,19 @@ export const createToolbar = (options, execCommand) => {
         'insertHorizontalRule',
         'Horizontal Rule',
         createIcon('fas fa-minus'),
+        execCommand
+      )
+    );
+  }
+
+  // Insert Image
+  if (options.horizontalLine !== NO) {
+    toolbar.insertAdjacentElement(
+      BEFORE_END,
+      createButton(
+        'insertHorizontalRule',
+        'Imsert Imagecs',
+        createIcon('far fa-image'),
         execCommand
       )
     );
