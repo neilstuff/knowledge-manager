@@ -2,75 +2,75 @@ import { createToolbar } from './toolbar';
 import { BEFORE_BEGIN } from './constants';
 
 const rgbToHex = color => {
-  const digits = /(.*?)rgb\((\d+), (\d+), (\d+)\)/.exec(color);
-  const red = parseInt(digits[2]);
-  const green = parseInt(digits[3]);
-  const blue = parseInt(digits[4]);
-  const rgb = blue | (green << 8) | (red << 16);
+    const digits = /(.*?)rgb\((\d+), (\d+), (\d+)\)/.exec(color);
+    const red = parseInt(digits[2]);
+    const green = parseInt(digits[3]);
+    const blue = parseInt(digits[4]);
+    const rgb = blue | (green << 8) | (red << 16);
 
-  return digits[1] + '#' + rgb.toString(16).padStart(6, '0');
+    return digits[1] + '#' + rgb.toString(16).padStart(6, '0');
 };
 
 export const transformToEditor = editor => {
-  // Indicate that the element is editable
-  editor.setAttribute('contentEditable', true);
+    // Indicate that the element is editable
+    editor.setAttribute('contentEditable', true);
 
-  // Add a custom class
-  editor.className = '__editor';
+    // Add a custom class
+    editor.className = '__editor';
 
-  // Create an exec command function
-  const execCommand = (commandId, value) => {
-    document.execCommand(commandId, false, value);
-    editor.focus();
-  };
+    // Create an exec command function
+    const execCommand = (commandId, value) => {
+        document.execCommand(commandId, false, value);
+        editor.focus();
+    };
 
-  // Set default paragraph to <p>
-  
-  execCommand('defaultParagraphSeparator', 'p');
-  execCommand('fontSize', '3');
+    // Set default paragraph to <p>
 
-  // Create a toolbar
-  const toolbar = createToolbar(editor.dataset, execCommand);
+    execCommand('defaultParagraphSeparator', 'p');
+    execCommand('fontSize', '3');
 
-  editor.insertAdjacentElement(BEFORE_BEGIN, toolbar);
+    // Create a toolbar
+    const toolbar = createToolbar(editor.dataset, execCommand);
 
-  // Listen for events to detect where the caret is
-  const updateActiveState = () => {
-    const toolbarSelects = toolbar.querySelectorAll('select[data-command-id]');
+    editor.insertAdjacentElement(BEFORE_BEGIN, toolbar);
 
-    for (const select of toolbarSelects) {
-      const value = document.queryCommandValue(select.dataset.commandId);
-      const option = Array.from(select.options).find(
-        option => option.value === value
-      );
+    // Listen for events to detect where the caret is
+    const updateActiveState = () => {
+        const toolbarSelects = toolbar.querySelectorAll('select[data-command-id]');
 
-      select.selectedIndex = option ? option.index : 0;
-    
-    }
+        for (const select of toolbarSelects) {
+            const value = document.queryCommandValue(select.dataset.commandId);
+            const option = Array.from(select.options).find(
+                option => option.value === value
+            );
 
-    const toolbarButtons = toolbar.querySelectorAll('button[data-command-id]');
+            select.selectedIndex = option ? option.index : 0;
 
-    for (const button of toolbarButtons) {
-      const active = document.queryCommandState(button.dataset.commandId);
+        }
 
-      button.classList.toggle('active', active);
-      
-    }
+        const toolbarButtons = toolbar.querySelectorAll('button[data-command-id]');
 
-    const inputButtons = toolbar.querySelectorAll('input[data-command-id]');
-    for (const input of inputButtons) {
-      const value = document.queryCommandValue(input.dataset.commandId);
-      input.value = rgbToHex(value);
-    }
-  };
+        for (const button of toolbarButtons) {
+            const active = document.queryCommandState(button.dataset.commandId);
 
-  editor.addEventListener('keydown', updateActiveState);
-  editor.addEventListener('keyup', updateActiveState);
-  editor.addEventListener('click', updateActiveState);
-  editor.addEventListener('input', e => {
-    console.log(editor.innerHTML);
-  });
+            button.classList.toggle('active', active);
 
-  toolbar.addEventListener('click', updateActiveState);
+        }
+
+        const inputButtons = toolbar.querySelectorAll('input[data-command-id]');
+        for (const input of inputButtons) {
+            const value = document.queryCommandValue(input.dataset.commandId);
+            input.value = rgbToHex(value);
+        }
+    };
+
+    editor.addEventListener('keydown', updateActiveState);
+    editor.addEventListener('keyup', updateActiveState);
+    editor.addEventListener('click', updateActiveState);
+    editor.addEventListener('input', e => {
+        console.log(editor.innerHTML);
+    });
+
+    toolbar.addEventListener('click', updateActiveState);
 
 };
