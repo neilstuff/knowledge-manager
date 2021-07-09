@@ -110,6 +110,10 @@ span.node_selected a {
     padding-left: 3px;
 }
 
+.box  {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;   
+}
+
 .menu,
 .sub-menu {
     margin: 0;

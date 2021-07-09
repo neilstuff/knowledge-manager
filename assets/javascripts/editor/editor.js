@@ -58,6 +58,7 @@ export const transformToEditor = editor => {
         }
 
         const inputButtons = toolbar.querySelectorAll('input[data-command-id]');
+        
         for (const input of inputButtons) {
             const value = document.queryCommandValue(input.dataset.commandId);
             input.value = rgbToHex(value);

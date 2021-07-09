@@ -1,15 +1,37 @@
-import { TOOLBAR_ITEM } from './constants';
+import { BEFORE_END, TOOLBAR_ITEM } from './constants';
 
-export const createUpload = (commandId, title, type, execCommand) => {
-  const input = document.createElement('input');
+export const createUpload = (commandId, title, children, execCommand) => {
 
-  input.dataset.commandId = commandId;
-  input.className = TOOLBAR_ITEM;
-  input.title = title;
-  input.type = type;
+ const upload = (e) => {  
+  var loadButton = document.createElementNS("http://www.w3.org/1999/xhtml", "input");
 
-  input.addEventListener('change', e => execCommand(commandId, e.target.value));
+  loadButton.setAttribute("type", "file");
+  loadButton.accept = "*.png";
 
-  return input;
-  
-};
+  loadButton.addEventListener('change', (event) => {
+     function toBase64(files) {
+
+     }
+
+      toBase64(event.target.files);
+
+      return false;
+
+    }, false);
+
+
+    loadButton.click();
+
+  } 
+  const button = document.createElement('button');
+
+  button.dataset.commandId = commandId;
+  button.className = TOOLBAR_ITEM;
+  button.title = title;
+  button.type = 'button';
+  button.insertAdjacentElement(BEFORE_END, children);
+  button.addEventListener('click', upload);
+
+  return button;
+
+}

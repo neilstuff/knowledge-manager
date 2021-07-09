@@ -250,9 +250,9 @@ export const createToolbar = (options, execCommand) => {
   if (options.horizontalLine !== NO) {
     toolbar.insertAdjacentElement(
       BEFORE_END,
-      createButton(
-        'insertHorizontalRule',
-        'Imsert Imagecs',
+      createUpload(
+        'insertLink',
+        'Insert Images',
         createIcon('far fa-image'),
         execCommand
       )

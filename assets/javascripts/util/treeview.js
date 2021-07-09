@@ -694,6 +694,7 @@ function createTree(div, backColor, contextMenu, callbacks) {
             text.style.display = "none";
 
             box.style.width = "50%";
+            box.className = "box";
             node.elementLi.getElementsByTagName('span')[0].appendChild(box);
             box.value = node.text;
             box.focus();
