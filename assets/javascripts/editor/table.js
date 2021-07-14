@@ -29,10 +29,13 @@ export const createTable = (commandId, title, children, execCommand) => {
         div.style.height = '110px';
         div.style.zIndex = '2';
         div.style.backgroundColor = 'rgb(255,255,255)';
-        div.style.border = "solid 1px rgb(0,0,0)";
+        div.style.border = "solid 1px rgba(0,0,0,0.2)";
 
         document.body.appendChild(div);
-
+        document.body.addEventListener('mouseup', e => {
+            console.log('mouseup');
+            div.remove();
+        });
         
 /*
         canvas.id     = "canvGameStage";
@@ -53,7 +56,7 @@ export const createTable = (commandId, title, children, execCommand) => {
     button.title = title;
     button.type = 'button';
     button.insertAdjacentElement(BEFORE_END, children);
-    button.addEventListener('click', selectDimensions);
+    button.addEventListener('mousedown', selectDimensions);
 
     return button;
 
