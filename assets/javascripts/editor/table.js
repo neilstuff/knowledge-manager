@@ -37,15 +37,14 @@ export const createTable = (commandId, title, children, execCommand) => {
             div.remove();
         });
         
-/*
+ 
         canvas.id     = "canvGameStage";
-        canvas.width  = 400;
-        canvas.height = 400;
+        canvas.width  = 100;
+        canvas.height = 100;
         canvas.style.zIndex   = 8;
         canvas.style.position = "absolute";
         canvas.style.border   = "1px solid";
         div.appendChild(canvas);
-        */
 
     }
 
