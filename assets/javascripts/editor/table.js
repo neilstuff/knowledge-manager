@@ -2,14 +2,15 @@ import { BEFORE_END, TOOLBAR_ITEM } from './constants';
 
 export const createTable = (commandId, title, children, execCommand) => {
 
-    const selectDimensions = (e) => {        
+    const selectDimensions = (e) => {
         var cumulativeOffset = function(element) {
-            var top = 0, left = 0;
+            var top = 0,
+                left = 0;
             do {
-                top += element.offsetTop  || 0;
+                top += element.offsetTop || 0;
                 left += element.offsetLeft || 0;
                 element = element.offsetParent;
-            } while(element);
+            } while (element);
 
             return {
                 top: top,
@@ -23,11 +24,12 @@ export const createTable = (commandId, title, children, execCommand) => {
         var editor = document.getElementById("editor");
 
         div.style.position = "absolute";
-        div.style.top = `${position.top + 30}px`;
+        div.style.top = `${position.top + 20}px`;
         div.style.left = `${position.left - 80}px`;
         div.style.width = '100px';
         div.style.height = '110px';
         div.style.zIndex = '2';
+        div
         div.style.backgroundColor = 'rgb(255,255,255)';
         div.style.border = "solid 1px rgba(0,0,0,0.2)";
 
@@ -36,15 +38,38 @@ export const createTable = (commandId, title, children, execCommand) => {
             console.log('mouseup');
             div.remove();
         });
-        
- 
-        canvas.id     = "canvGameStage";
-        canvas.width  = 100;
-        canvas.height = 100;
-        canvas.style.zIndex   = 8;
+
+
+        canvas.id = "canvGameStage";
+        canvas.width = 80;
+        canvas.height = 80;
+        canvas.style.marginLeft = "10px";
+        canvas.style.marginTop = "10px";
+        canvas.style.zIndex = 8;
         canvas.style.position = "absolute";
-        canvas.style.border   = "1px solid";
+        canvas.style.border = "1px solid rgba(47, 121, 255, 0.5)";
         div.appendChild(canvas);
+
+        var context = canvas.getContext('2d');
+
+        for (var line = 1; line <= 9; line++) {
+            context.beginPath();
+            context.moveTo(1 * line * 8, 0);
+            context.lineTo(1 * line * 8, 80);
+            context.closePath();
+            context.lineWidth = 1;
+            context.strokeStyle = 'rgba(47, 121, 255, 0.5)';
+            context.stroke();
+
+            context.beginPath();
+            context.moveTo(0, 1 * line * 8);
+            context.lineTo(80, 1 * line * 8);
+            context.closePath();
+            context.lineWidth = 1;
+            context.strokeStyle = 'rgba(47, 121, 255, 0.5)';
+            context.stroke();
+
+        }
 
     }
 
