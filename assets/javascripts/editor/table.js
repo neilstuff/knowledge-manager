@@ -24,10 +24,10 @@ export const createTable = (commandId, title, children, execCommand) => {
         var editor = document.getElementById("editor");
 
         div.style.position = "absolute";
-        div.style.top = `${position.top + 20}px`;
+        div.style.top = `${position.top + 30}px`;
         div.style.left = `${position.left - 80}px`;
-        div.style.width = '100px';
-        div.style.height = '110px';
+        div.style.width = '90px';
+        div.style.height = '90px';
         div.style.zIndex = '2';
         div
         div.style.backgroundColor = 'rgb(255,255,255)';
@@ -39,12 +39,11 @@ export const createTable = (commandId, title, children, execCommand) => {
             div.remove();
         });
 
-
-        canvas.id = "canvGameStage";
+        canvas.id = "canvasTable";
         canvas.width = 80;
         canvas.height = 80;
-        canvas.style.marginLeft = "10px";
-        canvas.style.marginTop = "10px";
+        canvas.style.marginLeft = "5px";
+        canvas.style.marginTop = "5px";
         canvas.style.zIndex = 8;
         canvas.style.position = "absolute";
         canvas.style.border = "1px solid rgba(47, 121, 255, 0.5)";
