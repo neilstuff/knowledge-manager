@@ -18,6 +18,22 @@ export const createTable = (commandId, title, children, execCommand) => {
             };
         };
 
+        var drawGrid = function(context) {
+            
+            for (var row = 0; row < 10 ; row++) {
+                for (var col = 0; col < 10 ; col++) {
+                    context.beginPath();
+                    context.lineWidth = 1;
+                    context.strokeStyle = 'rgba(47, 121, 255, 0.5)';
+                    context.rect(row * 8 + 2, col * 8 + 2, 5, 5);
+                    context.closePath();
+                    context.stroke();
+                }
+
+            }
+
+        }
+
         var position = cumulativeOffset(e.target);
         var canvas = document.createElement('canvas');
         var div = document.createElement("div");
@@ -26,10 +42,9 @@ export const createTable = (commandId, title, children, execCommand) => {
         div.style.position = "absolute";
         div.style.top = `${position.top + 30}px`;
         div.style.left = `${position.left - 80}px`;
-        div.style.width = '90px';
-        div.style.height = '90px';
+        div.style.width = '91px';
+        div.style.height = '91px';
         div.style.zIndex = '2';
-        div
         div.style.backgroundColor = 'rgb(255,255,255)';
         div.style.border = "solid 1px rgba(0,0,0,0.2)";
 
@@ -40,35 +55,86 @@ export const createTable = (commandId, title, children, execCommand) => {
         });
 
         canvas.id = "canvasTable";
-        canvas.width = 80;
-        canvas.height = 80;
+        canvas.width = 81;
+        canvas.height = 81;
         canvas.style.marginLeft = "5px";
         canvas.style.marginTop = "5px";
         canvas.style.zIndex = 8;
         canvas.style.position = "absolute";
         canvas.style.border = "1px solid rgba(47, 121, 255, 0.5)";
+
         div.appendChild(canvas);
 
         var context = canvas.getContext('2d');
 
-        for (var line = 1; line <= 9; line++) {
-            context.beginPath();
-            context.moveTo(1 * line * 8, 0);
-            context.lineTo(1 * line * 8, 80);
-            context.closePath();
-            context.lineWidth = 1;
-            context.strokeStyle = 'rgba(47, 121, 255, 0.5)';
-            context.stroke();
+        drawGrid(context);
 
-            context.beginPath();
-            context.moveTo(0, 1 * line * 8);
-            context.lineTo(80, 1 * line * 8);
-            context.closePath();
-            context.lineWidth = 1;
-            context.strokeStyle = 'rgba(47, 121, 255, 0.5)';
-            context.stroke();
+        canvas.addEventListener("mousemove", e => {
+            e.stopPropagation();
 
-        }
+            var cursor = {
+                x: e.offsetX,
+                y: e.offsetY
+            };
+        
+            console.log(cursor.x, cursor.y);
+
+            context.fillStyle = "#FF0000";
+
+            for (var row = 0; row < 10 ; row++) {
+                for (var col = 0; col < 10 ; col++) {
+
+                    if ((row <= Math.floor(cursor.x/8)) && (col <= Math.floor(cursor.y/8))) {
+                        context.fillStyle = "#0000FF";
+                    } else {
+                        context.fillStyle = "#FFFFFF";                     
+                    }
+
+                    context.beginPath();
+                    context.lineWidth = 1;
+                    context.fillRect(row * 8 + 3, col * 8 + 2, 4, 4);
+                    context.closePath();
+                    context.stroke();
+                
+                }
+
+            }
+
+        }, false);
+
+        canvas.addEventListener("mouseup", e => {
+            e.stopPropagation();
+
+            var cursor = {
+                x: e.offsetX,
+                y: e.offsetY
+            };
+        
+            console.log("mouseup", cursor.x, cursor.y);
+
+            div.remove();
+
+            let html = '<table align="center">';
+
+            for (var row = 0; row <= Math.floor(cursor.y/8) ; row++) {
+
+                html += '<tr>';
+
+                for (var col = 0; col <= Math.floor(cursor.x/8) ; col++) {
+
+                    html += '<td style="border: 1px dotted rgb(200,200,200);">&nbsp;</td>';
+
+                }
+
+                html += "</tr>";
+
+            }
+
+            html += "</table>";
+
+            execCommand('insertHTML', html);
+
+        }, false);
 
     }
 

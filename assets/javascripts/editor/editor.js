@@ -25,8 +25,8 @@ export const transformToEditor = editor => {
     };
 
     // Set default paragraph to <p>
-
     execCommand('defaultParagraphSeparator', 'p');
+    execCommand('fontname', 'sans-serif');
     execCommand('fontSize', '3');
 
     // Create a toolbar
