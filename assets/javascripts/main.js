@@ -11,6 +11,8 @@ let filename = null;
 let FRAGMENTS_MENU = null;
 let CALLBACKS = null;
 
+let editors = [];
+
 const extractFilename = (path) => {
     const pathArray = path.split("/");
     const lastIndex = pathArray.length - 1;
@@ -24,7 +26,7 @@ $.fn.Load = (filepath) => {
 
         zipFile.loadAsync(data).then(async function(zipFile) {
             documents = {};
-            editor.setData("");
+            editors[0].setHTML("");
 
             tree.removeTree();
 
@@ -103,7 +105,7 @@ $.fn.Load = (filepath) => {
                         tree.selectedNode = structure[path];
 
                         if (`${path}` == `${fileName.replace('$$', '')}/` && !setData) {
-                            editor.setData(data);
+                            editors[0].setHTML(data);
                             setData = true;
                         }
 
@@ -190,7 +192,12 @@ $(async() => {
 
     });
  
-    document.querySelectorAll('[data-tiny-editor]').forEach(transformToEditor);
+    document.querySelectorAll('[data-tiny-editor]').forEach(editor => {
+        transformToEditor(editor);
+
+        editors.push(editor);
+
+     });
 
     $("#window-minimize").on('click', async(e) => {
 
@@ -278,7 +285,7 @@ $(async() => {
 
         $('#filename').html('-&nbsp[Untitled]');
 
-        editor.setData("");
+        editor.setHTML("");
 
         tree.removeTree();
 
@@ -384,7 +391,7 @@ $(async() => {
                                     documents[node.id] = editor.getData();
                                     tree.selectNode(childNode);
                                     node.expandNode();
-                                    editor.setData("");
+                                    editors[0].setHTML("");
                                 }
                             },
                             {
@@ -419,7 +426,7 @@ $(async() => {
                     text: 'Delete Node',
                     icon: 'assets/images/delete-icon.png',
                     action: function(node) {
-                        editor.setData("");
+                        editors[0].setHTML("");
                         node.removeNode();
                     }
 
@@ -433,7 +440,7 @@ $(async() => {
                         documents[node.id] = editor.getData();
                         tree.selectNode(childNode);
                         node.expandNode();
-                        editor.setData("");
+                        editors[0].setHTML("");
                     }
                 }
             ]
@@ -446,9 +453,9 @@ $(async() => {
 
         onclick: function(node) {
             if (documents[node.id] == null) {
-                editor.setData("");
+                editors[0].setHTML("");
             } else {
-                editor.setData(documents[node.id]);
+                editors[0].setHTML(documents[node.id]);
             }
 
         },

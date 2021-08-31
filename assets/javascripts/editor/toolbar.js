@@ -48,8 +48,8 @@ export const createToolbar = (options, execCommand) => {
             createSelect(
                 'fontname',
                 'Font', [
-                    { value: 'serif', text: 'Serif', selected: true },
-                    { value: 'sans-serif', text: 'Sans Serif' },
+                    { value: 'serif', text: 'Serif'},
+                    { value: 'sans-serif', text: 'Sans Serif', selected: true  },
                     { value: 'monospace', text: 'Monospace' },
                     { value: 'cursive', text: 'Cursive' },
                     { value: 'fantasy', text: 'Fantasy' }
@@ -84,7 +84,7 @@ export const createToolbar = (options, execCommand) => {
     if (options.bold !== NO) {
         toolbar.insertAdjacentElement(
             BEFORE_END,
-            createButton('bold', 'Bold', createIcon('fas fa-bold'), execCommand)
+            createButton(toolbar, 'bold', 'Bold', createIcon('fas fa-bold'), execCommand)
         );
     }
 
@@ -92,7 +92,7 @@ export const createToolbar = (options, execCommand) => {
     if (options.italic !== NO) {
         toolbar.insertAdjacentElement(
             BEFORE_END,
-            createButton('italic', 'Italic', createIcon('fas fa-italic'), execCommand)
+            createButton(toolbar, 'italic', 'Italic', createIcon('fas fa-italic'), execCommand)
         );
     }
 
@@ -101,6 +101,7 @@ export const createToolbar = (options, execCommand) => {
         toolbar.insertAdjacentElement(
             BEFORE_END,
             createButton(
+                toolbar, 
                 'underline',
                 'Underline',
                 createIcon('fas fa-underline'),
@@ -125,6 +126,7 @@ export const createToolbar = (options, execCommand) => {
         toolbar.insertAdjacentElement(
             BEFORE_END,
             createButton(
+                toolbar, 
                 'justifyleft',
                 'Left align',
                 createIcon('fas fa-align-left'),
@@ -138,6 +140,7 @@ export const createToolbar = (options, execCommand) => {
         toolbar.insertAdjacentElement(
             BEFORE_END,
             createButton(
+                toolbar, 
                 'justifycenter',
                 'Center align',
                 createIcon('fas fa-align-center'),
@@ -151,6 +154,7 @@ export const createToolbar = (options, execCommand) => {
         toolbar.insertAdjacentElement(
             BEFORE_END,
             createButton(
+                toolbar, 
                 'justifyright',
                 'Right align',
                 createIcon('fas fa-align-right'),
@@ -165,6 +169,7 @@ export const createToolbar = (options, execCommand) => {
         toolbar.insertAdjacentElement(
             BEFORE_END,
             createButton(
+                toolbar, 
                 'justifyfull',
                 'Justify Full',
                 createIcon('fas fa-align-justify'),
@@ -181,6 +186,7 @@ export const createToolbar = (options, execCommand) => {
         toolbar.insertAdjacentElement(
             BEFORE_END,
             createButton(
+                toolbar, 
                 'insertorderedlist',
                 'Numbered list',
                 createIcon('fas fa-list-ol'),
@@ -194,6 +200,7 @@ export const createToolbar = (options, execCommand) => {
         toolbar.insertAdjacentElement(
             BEFORE_END,
             createButton(
+                toolbar, 
                 'insertunorderedlist',
                 'Bulleted list',
                 createIcon('fas fa-list-ul'),
@@ -207,6 +214,7 @@ export const createToolbar = (options, execCommand) => {
         toolbar.insertAdjacentElement(
             BEFORE_END,
             createButton(
+                toolbar, 
                 'outdent',
                 'Decrease indent',
                 createIcon('fas fa-indent fa-flip-horizontal'),
@@ -220,6 +228,7 @@ export const createToolbar = (options, execCommand) => {
         toolbar.insertAdjacentElement(
             BEFORE_END,
             createButton(
+                toolbar, 
                 'indent',
                 'Increase indent',
                 createIcon('fas fa-indent'),
@@ -236,6 +245,7 @@ export const createToolbar = (options, execCommand) => {
         toolbar.insertAdjacentElement(
             BEFORE_END,
             createButton(
+                toolbar, 
                 'insertHorizontalRule',
                 'Horizontal Rule',
                 createIcon('fas fa-minus'),
@@ -278,6 +288,7 @@ export const createToolbar = (options, execCommand) => {
         toolbar.insertAdjacentElement(
             BEFORE_END,
             createButton(
+                toolbar, 
                 'removeFormat',
                 'Clear formatting',
                 createIcon('fas fa-eraser'),

@@ -1,4 +1,5 @@
 import { createToolbar } from './toolbar';
+import { createMenu } from './popup';
 import { BEFORE_BEGIN } from './constants';
 
 const rgbToHex = color => {
@@ -12,6 +13,7 @@ const rgbToHex = color => {
 };
 
 export const transformToEditor = editor => {
+
     // Indicate that the element is editable
     editor.setAttribute('contentEditable', true);
 
@@ -26,7 +28,7 @@ export const transformToEditor = editor => {
 
     // Set default paragraph to <p>
     execCommand('defaultParagraphSeparator', 'p');
-    execCommand('fontname', 'sans-serif');
+    execCommand('fontname', 'serif');
     execCommand('fontSize', '3');
 
     // Create a toolbar
@@ -36,18 +38,6 @@ export const transformToEditor = editor => {
 
     // Listen for events to detect where the caret is
     const updateActiveState = () => {
-        const toolbarSelects = toolbar.querySelectorAll('select[data-command-id]');
-
-        for (const select of toolbarSelects) {
-            const value = document.queryCommandValue(select.dataset.commandId);
-            const option = Array.from(select.options).find(
-                option => option.value === value
-            );
-
-            select.selectedIndex = option ? option.index : 0;
-
-        }
-
         const toolbarButtons = toolbar.querySelectorAll('button[data-command-id]');
 
         for (const button of toolbarButtons) {
@@ -63,6 +53,15 @@ export const transformToEditor = editor => {
             const value = document.queryCommandValue(input.dataset.commandId);
             input.value = rgbToHex(value);
         }
+
+    };
+
+    const contextMenu = (e) => {
+
+        console.log('contextMenu', e.target);
+
+        e.preventDefault();
+
     };
 
     editor.addEventListener('keydown', updateActiveState);
@@ -72,6 +71,10 @@ export const transformToEditor = editor => {
         console.log(editor.innerHTML);
     });
 
-    toolbar.addEventListener('click', updateActiveState);
+    editor.addEventListener('contextmenu', contextMenu);
+
+    editor.setHTML = function(html) {
+        editor.innerHTML = html;
+    }
 
 };

@@ -4,7 +4,6 @@ function createTree(div, backColor, contextMenu, callbacks) {
     var menu_image = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAIVBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABt0UjBAAAACnRSTlMAAQOUl5q3vMDcYnh4SwAAAEFJREFUCFtjYIADDkcog2upAJSxKhDGgApxrYIKARkQISBjlQGMkQBlLFeAMoqgiiECQEYR1ECoAAMnVICBCWIBAIEPE827Ja8hAAAAAElFTkSuQmCC";
     var empty_image = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
-
     function checkParentage(source, target) {
 
         if (source == null || target == null) {
@@ -46,6 +45,7 @@ function createTree(div, backColor, contextMenu, callbacks) {
         }
 
         return element;
+        
     }
 
     function createImgElement(id, className, src, width, height) {
