@@ -1,5 +1,5 @@
 import { createToolbar } from './toolbar';
-import { createMenu } from './popup';
+import { createPopup } from './popup';
 import { BEFORE_BEGIN } from './constants';
 
 const rgbToHex = color => {
@@ -28,8 +28,6 @@ export const transformToEditor = editor => {
 
     // Set default paragraph to <p>
     execCommand('defaultParagraphSeparator', 'p');
-    execCommand('fontname', 'serif');
-    execCommand('fontSize', '3');
 
     // Create a toolbar
     const toolbar = createToolbar(editor.dataset, execCommand);
@@ -60,6 +58,37 @@ export const transformToEditor = editor => {
 
         console.log('contextMenu', e.target);
 
+        var cursor = {
+            x: e.x,
+            y: e.y
+        };
+        var element = document.elementFromPoint(e.x + 1, e.y + 1);
+
+        if (element.tagName == 'TD') {
+            console.log(e.target.tagName);
+
+            var items = [
+                {
+                    text: "Delete Table",
+                },
+                {
+                    text: "Add Row",
+                },
+                {
+                    text: "Add Column",
+                },
+                {
+                    text: "Delete Row",
+                },
+                {
+                    text: "Delete Column",
+                }
+            ];
+
+            const popup = createPopup(cursor, items);
+
+        }
+
         e.preventDefault();
 
     };
@@ -68,13 +97,22 @@ export const transformToEditor = editor => {
     editor.addEventListener('keyup', updateActiveState);
     editor.addEventListener('click', updateActiveState);
     editor.addEventListener('input', e => {
-        console.log(editor.innerHTML);
+
+        if (typeof editor.onChange === 'function') {
+            editor.onChange(editor.innerHTML);
+        }
+
     });
 
     editor.addEventListener('contextmenu', contextMenu);
 
     editor.setHTML = function(html) {
         editor.innerHTML = html;
+        updateActiveState
+    }
+
+    editor.getHTML = function() {
+        return editor.innerHTML;
     }
 
 };

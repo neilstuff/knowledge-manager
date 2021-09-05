@@ -48,8 +48,8 @@ export const createToolbar = (options, execCommand) => {
             createSelect(
                 'fontname',
                 'Font', [
-                    { value: 'serif', text: 'Serif'},
-                    { value: 'sans-serif', text: 'Sans Serif', selected: true  },
+                    { value: 'serif', text: 'Serif', selected: true },
+                    { value: 'sans-serif', text: 'Sans Serif'},
                     { value: 'monospace', text: 'Monospace' },
                     { value: 'cursive', text: 'Cursive' },
                     { value: 'fantasy', text: 'Fantasy' }

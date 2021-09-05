@@ -186,7 +186,7 @@ $(async() => {
     $(document).on('click', 'a[href^="http"]', function(event) {
         event.preventDefault();
 
-        if (event.target.id.includes('ck-editor')) {
+        if (event.target.id.includes('editor')) {
             window.api.openUrl(this.href);
         }
 
@@ -196,6 +196,15 @@ $(async() => {
         transformToEditor(editor);
 
         editors.push(editor);
+
+        editor.onChange = (html) => {
+
+           if (tree != null & tree.selectedNode != null) {
+    
+                documents[tree.selectedNode.id] = html;
+            }
+    
+        }
 
      });
 
@@ -388,7 +397,7 @@ $(async() => {
                                 icon: 'assets/images/add-icon.png',
                                 action: function(node) {
                                     var childNode = node.createChildNode('[fragment]', false, "assets/images/document-icon.png", null, "context2");
-                                    documents[node.id] = editor.getData();
+                                    documents[node.id] = editors[0].getHTML();
                                     tree.selectNode(childNode);
                                     node.expandNode();
                                     editors[0].setHTML("");
@@ -437,7 +446,7 @@ $(async() => {
                     action: function(node) {
                         var childNode = node.createChildNode('[fragment]', false, 'assets/images/document-icon.png', null, "context2");
                         node.setIcon('assets/images/folder-icon.png');
-                        documents[node.id] = editor.getData();
+                        documents[node.id] = editors[0].getHTML();
                         tree.selectNode(childNode);
                         node.expandNode();
                         editors[0].setHTML("");

@@ -1,4 +1,4 @@
-export const createMenu = (position, menu) => {
+export const createPopup = (position, menu) => {
 
     function createSimpleElement(type, id, className) {
         element = document.createElement(type);
@@ -14,64 +14,46 @@ export const createMenu = (position, menu) => {
         
     }
     
+    var div = createSimpleElement('div', null, null);
+    var ul = createSimpleElement('ul', null, ' menu');
+
+    div.appendChild(ul)
     
-    function createImgElement(id, className, src, width, height) {
-        element = document.createElement('img');
-        if (id != undefined) {
-            element.id = id;
-        }
+    for (var iItem = 0; iItem < menu.length; iItem++)(function(iItem) {
+ 
+        var a = createSimpleElement('a', null, null);
+  
+        a.appendChild(document.createTextNode(menu[iItem].text));
 
-        if (className != undefined) {
-            element.className = className;
-        }
-
-        if (src != undefined) {
-            element.src = src;
-        }
-
-        if (width != undefined) {
-            element.style.width = `${width}px`;
-        }
-
-        if (height != undefined) {
-            element.style.height = `${height}px`;
-        }
-
-        return element;
-
-    }
-
-    for (var iItem = 0; iItem < items.length; iItem++)(function(iItem) {
         var li = createSimpleElement('li', null, null);
         var span = createSimpleElement('span', null, null);
-
-        span.onclick = function() {
-        };
-
-        var a = createSimpleElement('a', null, null);
-        var ul = createSimpleElement('ul', null, ' sub-menu');
-
-        a.appendChild(document.createTextNode(v_menu.elements[iItem].text));
-
-        li.appendChild(span);
-
-        if (menu.elements[iItem].icon != undefined) {
-            var img = createImgElement('null', 'null', menu.elements[iItem].icon);
-            li.appendChild(img);
-        }
-
-        li.appendChild(a);
-        li.appendChild(ul);
+        span.appendChild(a);
         
-        div.appendChild(li);
+        li.appendChild(span);
+        li.appendChild(a);       
+        ul.appendChild(li);
 
-        if (menu.elements[iItem].submenu != undefined) {
-            var v_span_more = createSimpleElement('div', null, null);
-            v_span_more.appendChild(createImgElement(null, 'menu_img', menu_image, 8, 8));
-            v_li.appendChild(v_span_more);
-            nodeTree.contextMenuListItem(v_menu.elements[iItem].submenu, v_ul, node);
-        }
+        console.log(li);
+
 
     })(iItem);
+
+    div.style.display = 'block';
+    div.style.position = 'absolute';
+    div.style.left = (position.x) + 'px';
+    div.style.top = (position.y) + 'px';
+
+    console.log(div);
+
+    document.body.appendChild(div);
+
+    window.onclick = function() {
+
+        if (div != null && div.parentNode == document.body) {
+            document.body.removeChild(div);
+            div = null;
+        }
+
+    }
 
 } 

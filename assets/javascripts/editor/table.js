@@ -50,7 +50,6 @@ export const createTable = (commandId, title, children, execCommand) => {
 
         document.body.appendChild(div);
         document.body.addEventListener('mouseup', e => {
-            console.log('mouseup');
             div.remove();
         });
 
@@ -77,8 +76,6 @@ export const createTable = (commandId, title, children, execCommand) => {
                 y: e.offsetY
             };
         
-            console.log(cursor.x, cursor.y);
-
             context.fillStyle = "#FF0000";
 
             for (var row = 0; row < 10 ; row++) {
@@ -109,8 +106,6 @@ export const createTable = (commandId, title, children, execCommand) => {
                 x: e.offsetX,
                 y: e.offsetY
             };
-        
-            console.log("mouseup", cursor.x, cursor.y);
 
             div.remove();
 
@@ -122,7 +117,7 @@ export const createTable = (commandId, title, children, execCommand) => {
 
                 for (var col = 0; col <= Math.floor(cursor.x/8) ; col++) {
 
-                    html += '<td style="border: 1px dotted rgb(200,200,200);">&nbsp;</td>';
+                    html += '<td></td>';
 
                 }
 
