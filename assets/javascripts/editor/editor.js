@@ -55,9 +55,6 @@ export const transformToEditor = editor => {
     };
 
     const contextMenu = (e) => {
-
-        console.log('contextMenu', e.target);
-
         var cursor = {
             x: e.x,
             y: e.y
@@ -65,23 +62,55 @@ export const transformToEditor = editor => {
         var element = document.elementFromPoint(e.x + 1, e.y + 1);
 
         if (element.tagName == 'TD') {
-            console.log(e.target.tagName);
 
             var items = [
                 {
                     text: "Delete Table",
+                    element: element,
+                    action: function (element) {
+                        var node = element.parentNode;
+
+                        while (node.tagName != 'TABLE') {
+                            node = node.parentNode
+                        }
+
+                        node.remove();
+                        editor.focus();
+
+                    }
+
                 },
                 {
                     text: "Add Row",
+                    element: element,
+                    action: function (element) {
+                        console.alert(element);
+                    }
+  
                 },
                 {
                     text: "Add Column",
+                    element: element,
+                    action: function (element) {
+                        console.alert(element);
+                    }
+  
                 },
                 {
                     text: "Delete Row",
+                    element: element,
+                    action: function (element) {
+                        console.alert(element);
+                    }
+  
                 },
                 {
                     text: "Delete Column",
+                    element: element,
+                    action: function (element) {
+                        console.alert(element);
+                    }
+  
                 }
             ];
 

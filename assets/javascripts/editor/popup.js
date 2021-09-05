@@ -19,7 +19,7 @@ export const createPopup = (position, menu) => {
 
     div.appendChild(ul)
     
-    for (var iItem = 0; iItem < menu.length; iItem++)(function(iItem) {
+    for (var iItem = 0; iItem < menu.length; iItem++) (function(iItem) {
  
         var a = createSimpleElement('a', null, null);
   
@@ -28,12 +28,14 @@ export const createPopup = (position, menu) => {
         var li = createSimpleElement('li', null, null);
         var span = createSimpleElement('span', null, null);
         span.appendChild(a);
+
+        span.addEventListener("click", function (e) {
+            menu[iItem].action( menu[iItem].element);
+        });
         
         li.appendChild(span);
         li.appendChild(a);       
         ul.appendChild(li);
-
-        console.log(li);
 
 
     })(iItem);
@@ -42,9 +44,7 @@ export const createPopup = (position, menu) => {
     div.style.position = 'absolute';
     div.style.left = (position.x) + 'px';
     div.style.top = (position.y) + 'px';
-
-    console.log(div);
-
+    
     document.body.appendChild(div);
 
     window.onclick = function() {
