@@ -84,7 +84,20 @@ export const transformToEditor = editor => {
                     text: "Add Row",
                     element: element,
                     action: function (element) {
-                        console.alert(element);
+                        var rowIndex = element.closest('tr').rowIndex;
+                        var cellsLength = element.closest('tr').cells.length;
+                        var table = element.parentNode;
+
+                        while (table.tagName != 'TABLE') {
+                            table = table.parentNode
+                        }
+
+                        var row = table.insertRow(rowIndex);
+
+                        for (var iCell = 0; iCell < cellsLength; iCell++) {
+                            row.insertCell(iCell);
+                        }
+
                     }
   
                 },
@@ -92,7 +105,16 @@ export const transformToEditor = editor => {
                     text: "Add Column",
                     element: element,
                     action: function (element) {
-                        console.alert(element);
+                        var table = element.parentNode;
+                        while (table.tagName != 'TABLE') {
+                            table = table.parentNode
+                        }
+                        var cellIndex = element.cellIndex;
+  
+                        for (var row = 0; row < table.rows.length; row++) {
+                             table.rows[row].insertCell(cellIndex);
+                        } 
+
                     }
   
                 },
@@ -100,7 +122,16 @@ export const transformToEditor = editor => {
                     text: "Delete Row",
                     element: element,
                     action: function (element) {
-                        console.alert(element);
+                        var rowIndex = element.closest('tr').rowIndex;
+                        var cellsLength = element.closest('tr').cells.length;
+                        var table = element.parentNode;
+
+                        while (table.tagName != 'TABLE') {
+                            table = table.parentNode
+                        }
+
+                        table.deleteRow(rowIndex)
+
                     }
   
                 },
@@ -108,7 +139,32 @@ export const transformToEditor = editor => {
                     text: "Delete Column",
                     element: element,
                     action: function (element) {
-                        console.alert(element);
+                        var cellsLength = element.closest('tr').cells.length;
+
+                        var table = element.parentNode;
+                        while (table.tagName != 'TABLE') {
+                            table = table.parentNode
+                        }
+
+                        
+                        var cellIndex = element.cellIndex;
+                        var cellCount = 0;
+
+                        for (var row = 0; row < table.rows.length; row++) {
+                             
+                            if (table.rows[row].cells.length > cellIndex) {
+                                table.rows[row].deleteCell(cellIndex);
+                            } 
+
+                            cellCount = table.rows[row].cells.length > 0 ? table.rows[row].cells.length : cellCount
+
+                        }
+
+                        if (cellCount == 0) {
+                            table.remove();
+                            editor.focus();
+                        }
+ 
                     }
   
                 }
