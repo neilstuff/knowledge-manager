@@ -294,7 +294,7 @@ $(async() => {
 
         $('#filename').html('-&nbsp[Untitled]');
 
-        editor.setHTML("");
+        editors[0].setHTML("");
 
         tree.removeTree();
 
