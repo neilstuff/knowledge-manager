@@ -22,8 +22,10 @@ export const transformToEditor = editor => {
 
     // Create an exec command function
     const execCommand = (commandId, value) => {
+        editor.focus();
         document.execCommand(commandId, false, value);
         editor.focus();
+        console.log(editor.innerHTML);
     };
 
     // Set default paragraph to <p>
@@ -193,7 +195,7 @@ export const transformToEditor = editor => {
     editor.addEventListener('input', e => {
 
         if (typeof editor.onChange === 'function') {
-            editor.onChange(editor.innerHTML);
+           editor.onChange(editor.innerHTML);
         }
 
     });

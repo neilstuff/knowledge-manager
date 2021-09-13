@@ -24,7 +24,7 @@ var mainWindow = null;
 function createWindow() {
 
     mainWindow = new BrowserWindow({
-        width: 1305,
+        width: 1350,
         height: 800,
         resizable: true,
         frame: false,
@@ -34,6 +34,7 @@ function createWindow() {
             nodeIntegration: false,
             contextIsolation: true,
             enableRemoteModule: false,
+            nativeWindowOpen: true,
             preload: path.join(__dirname, "preload.js")
         }
 
@@ -200,3 +201,4 @@ ipcMain.on('openUrl', function(event, arg) {
     shell.openExternal(url);
 
 });
+

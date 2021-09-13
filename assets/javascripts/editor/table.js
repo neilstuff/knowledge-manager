@@ -1,4 +1,5 @@
 import { BEFORE_END, TOOLBAR_ITEM } from './constants';
+import { cumulativeOffset } from './utilities';
 
 export const createTable = (commandId, title, children, execCommand) => {
 

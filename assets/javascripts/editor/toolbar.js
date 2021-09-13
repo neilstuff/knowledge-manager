@@ -4,6 +4,7 @@ import { createIcon } from './icon';
 import { createInput } from './input';
 import { createUpload } from './upload';
 import { createTable } from './table';
+import { createLink } from './link';
 import { BEFORE_END } from './constants';
 
 const NO = 'no';
@@ -267,6 +268,18 @@ export const createToolbar = (options, execCommand) => {
         );
     }
 
+    // Insert Image
+    if (options.inserLink !== NO) {
+        toolbar.insertAdjacentElement(
+            BEFORE_END,
+            createLink(
+                'createLink',
+                'Create Link',
+                createIcon('fas fa-link'),
+                execCommand
+            )
+        );
+    }
     // Insert Table
     if (options.insertTable !== NO) {
         toolbar.insertAdjacentElement(
