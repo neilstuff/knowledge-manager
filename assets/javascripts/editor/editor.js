@@ -59,10 +59,13 @@ export const transformToEditor = editor => {
     var menu = createMenu(editor);
 
     const contextMenu = (e) => {
+        console.log("im here a");
+
         var cursor = {
             x: e.x,
             y: e.y
         };
+
         var element = document.elementFromPoint(e.x + 1, e.y + 1);
 
         do {
@@ -75,9 +78,9 @@ export const transformToEditor = editor => {
 
             }
             element = element.parentElement
-        } while (element != null);
+        } while (element != null && element != editor);
 
-        e.preventDefault();
+ 
 
     };
 

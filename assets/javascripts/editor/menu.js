@@ -117,8 +117,6 @@ export const createMenu = (editor) => {
             {
             text: "Edit Anchor",
             action: function(element, position) {
-
-                alert("im herer a");
        
                 editor.focus();
 

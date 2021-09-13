@@ -732,6 +732,13 @@ function createTree(div, backColor, contextMenu, callbacks) {
                         document.body.appendChild(v_div);
                     } else {
                         v_div = this.contextMenuDiv;
+
+                        v_div.onclick = function() {
+                            if (tree.contextMenuDiv != null) {
+                                tree.contextMenuDiv.style.display = 'none';
+                            }
+                        }
+
                     }
 
                     v_div.innerHTML = '';
@@ -787,8 +794,14 @@ function createTree(div, backColor, contextMenu, callbacks) {
                         }
 
                     })(iItem);
-
+                    
+                    v_div.onclick = function() {
+                        if (tree.contextMenuDiv != null) {
+                            tree.contextMenuDiv.style.display = 'none';
+                        }
+                    }
                     this.contextMenuDiv = v_div;
+                    
 
                 }
             }
@@ -830,12 +843,6 @@ function createTree(div, backColor, contextMenu, callbacks) {
             })(iSubmenu);
         }
 
-    }
-
-    window.onclick = function() {
-        if (tree.contextMenuDiv != null) {
-            tree.contextMenuDiv.style.display = 'none';
-        }
     }
 
     return tree;

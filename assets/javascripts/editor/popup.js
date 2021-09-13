@@ -49,13 +49,13 @@ export const createPopup = (position, menu, element) => {
     
     document.body.appendChild(div);
 
-    window.onclick = function() {
+    div.onclick = function() {
 
         if (div != null && div.parentNode == document.body) {
             document.body.removeChild(div);
             div = null;
         }
-
+      
     }
 
 } 
