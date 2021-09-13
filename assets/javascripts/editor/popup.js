@@ -1,7 +1,9 @@
-export const createPopup = (position, menu) => {
+export const createPopup = (position, menu, element) => {
 
     function createSimpleElement(type, id, className) {
-        element = document.createElement(type);
+
+        var element = document.createElement(type);
+
         if (id != undefined) {
             element.id = id;
         }
@@ -30,7 +32,7 @@ export const createPopup = (position, menu) => {
         span.appendChild(a);
 
         span.addEventListener("click", function (e) {
-            menu[iItem].action( menu[iItem].element);
+            menu[iItem].action(element, position);
         });
         
         li.appendChild(span);

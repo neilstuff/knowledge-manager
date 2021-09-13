@@ -1,4 +1,5 @@
 import { createToolbar } from './toolbar';
+import { createMenu } from './menu';
 import { createPopup } from './popup';
 import { BEFORE_BEGIN } from './constants';
 
@@ -22,11 +23,9 @@ export const transformToEditor = editor => {
 
     // Create an exec command function
     const execCommand = (commandId, value) => {
-        editor.focus();
         document.execCommand(commandId, false, value);
         editor.focus();
-        console.log(editor.innerHTML);
-    };
+     };
 
     // Set default paragraph to <p>
     execCommand('defaultParagraphSeparator', 'p');
@@ -56,6 +55,9 @@ export const transformToEditor = editor => {
 
     };
 
+    
+    var menu = createMenu(editor);
+
     const contextMenu = (e) => {
         var cursor = {
             x: e.x,
@@ -63,127 +65,17 @@ export const transformToEditor = editor => {
         };
         var element = document.elementFromPoint(e.x + 1, e.y + 1);
 
-        if (element.tagName == 'TD') {
+        do {
+            if (element.tagName in menu) {
+                var items = menu[element.tagName];
 
-            var items = [{
-                    text: "Delete Table",
-                    element: element,
-                    action: function(element) {
-                        var node = element.parentNode;
+                const popup = createPopup(cursor, items, element);
 
-                        while (node.tagName != 'TABLE') {
-                            node = node.parentNode
-                        }
+                break;
 
-                        node.remove();
-                        editor.focus();
-
-                        editor.onChange(editor.innerHTML);
-
-                    }
-
-                },
-                {
-                    text: "Add Row",
-                    element: element,
-                    action: function(element) {
-                        var rowIndex = element.closest('tr').rowIndex;
-                        var cellsLength = element.closest('tr').cells.length;
-                        var table = element.parentNode;
-
-                        while (table.tagName != 'TABLE') {
-                            table = table.parentNode
-                        }
-
-                        var row = table.insertRow(rowIndex);
-
-                        for (var iCell = 0; iCell < cellsLength; iCell++) {
-                            row.insertCell(iCell);
-                        }
-
-                        editor.onChange(editor.innerHTML);
-
-                    }
-
-                },
-                {
-                    text: "Add Column",
-                    element: element,
-                    action: function(element) {
-                        var table = element.parentNode;
-                        while (table.tagName != 'TABLE') {
-                            table = table.parentNode
-                        }
-                        var cellIndex = element.cellIndex;
-
-                        for (var row = 0; row < table.rows.length; row++) {
-                            table.rows[row].insertCell(cellIndex);
-                        }
-
-                        editor.onChange(editor.innerHTML);
-
-                    }
-
-                },
-                {
-                    text: "Delete Row",
-                    element: element,
-                    action: function(element) {
-                        var rowIndex = element.closest('tr').rowIndex;
-                        var cellsLength = element.closest('tr').cells.length;
-                        var table = element.parentNode;
-
-                        while (table.tagName != 'TABLE') {
-                            table = table.parentNode
-                        }
-
-                        table.deleteRow(rowIndex);
-
-                        editor.onChange(editor.innerHTML);
-
-                    }
-
-                },
-                {
-                    text: "Delete Column",
-                    element: element,
-                    action: function(element) {
-                        var cellsLength = element.closest('tr').cells.length;
-
-                        var table = element.parentNode;
-                        while (table.tagName != 'TABLE') {
-                            table = table.parentNode
-                        }
-
-
-                        var cellIndex = element.cellIndex;
-                        var cellCount = 0;
-
-                        for (var row = 0; row < table.rows.length; row++) {
-
-                            if (table.rows[row].cells.length > cellIndex) {
-                                table.rows[row].deleteCell(cellIndex);
-                            }
-
-                            cellCount = table.rows[row].cells.length > 0 ? table.rows[row].cells.length : cellCount
-
-                        }
-
-                        if (cellCount == 0) {
-                            table.remove();
-                            editor.focus();
-                        }
-
-                        editor.onChange(editor.innerHTML);
-
-                    }
-
-                }
-            ];
-
-            const popup = createPopup(cursor, items);
-
-        }
+            }
+            element = element.parentElement
+        } while (element != null);
 
         e.preventDefault();
 
