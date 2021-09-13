@@ -59,8 +59,6 @@ export const transformToEditor = editor => {
     var menu = createMenu(editor);
 
     const contextMenu = (e) => {
-        console.log("im here a");
-
         var cursor = {
             x: e.x,
             y: e.y
