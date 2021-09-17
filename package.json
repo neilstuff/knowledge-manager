@@ -36,12 +36,12 @@
         "balloon-css": "^1.2.0",
         "jquery": "^3.4.1",
         "jszip": "^3.5.0",
-        "mime": "^2.0.4",
-        "node": "^15.8.0"
+        "mime": "^2.0.4"
     },
     "devDependencies": {
         "electron": "^14.0.1",
-        "electron-builder": "^22.11.7"
+        "electron-builder": "^22.11.7",
+        "node": "^15.8.0"
     },
     "bugs": {
         "url": "https://github.com/thesourorange/knowledge-manager/issues"
