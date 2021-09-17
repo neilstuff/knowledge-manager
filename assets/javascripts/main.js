@@ -182,7 +182,10 @@ $.fn.Join = (childNodes, html, level) => {
 }
 
 $(async() => {
-
+     
+    document.addEventListener('dragover', event => event.preventDefault());
+    document.addEventListener('drop', event => event.preventDefault());
+    
     $(document).on('click', 'a[href^="http"]', function(event) {
         event.preventDefault();
 
