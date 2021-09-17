@@ -3,6 +3,7 @@
 const config = require('./config.json');
 
 const electron = require('electron');
+
 const { app } = electron;
 const { protocol } = electron;
 const { ipcMain } = electron;
