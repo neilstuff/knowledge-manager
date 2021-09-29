@@ -47,11 +47,7 @@ function createWindow() {
 
     mainWindow.setMenu(null);
     mainWindow.setTitle('Knowledge Manager') // Window name isn't this
-    mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'index.html'),
-        protocol: 'html',
-        slashes: true
-    }))
+    mainWindow.loadURL(`html:///${path.join(__dirname, 'index.html')}`);
 
     mainWindow.on('closed', () => {
         mainWindow = null
@@ -62,7 +58,6 @@ function createWindow() {
 app.on('ready', () => {
 
     protocol.registerBufferProtocol('html', function(request, callback) {
-
         let pathName = (new URL(request.url).pathname).substring(os.platform() == 'win32' ? 1 : 0);
         let extension = path.extname(pathName);
 
@@ -71,9 +66,7 @@ app.on('ready', () => {
             pathName += extension;
         }
 
-        console.log(pathName);
-
-        return callback({ data: fs.readFileSync(pathName), mimeType: mime.getType(extension) });
+        return callback({ data: fs.readFileSync(path.normalize(pathName)), mimeType: mime.getType(extension) });
 
     });
 
