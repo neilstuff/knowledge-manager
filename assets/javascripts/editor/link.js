@@ -14,7 +14,7 @@ export const createLink = (commandId, title, children, execCommand) => {
     button.addEventListener('click', (e) => {
         var position = cumulativeOffset(button);
         var linkWindow = window.open("", "Link Window", 
-                            `frame=false,top=${position.top + window.screenTop + 30},left=${window.screenLeft + position.left},width=200,height=4`);
+                            `frame=false,top=${position.top + window.screenTop + 30},left=${window.screenLeft + position.left},width=200,height=40`);
 
         createLinkSelection(linkWindow, linkWindow.document, "http://");
 
