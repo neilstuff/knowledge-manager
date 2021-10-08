@@ -845,6 +845,12 @@ function createTree(div, backColor, contextMenu, callbacks) {
 
     }
 
-    return tree;
+    window.addEventListener("click", function() {
+        if (tree.contextMenuDiv != null) {
+            tree.contextMenuDiv.style.display = 'none';
+        }
+    });
+
+    return tree;dsds
 
 }

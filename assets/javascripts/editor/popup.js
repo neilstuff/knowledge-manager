@@ -48,14 +48,12 @@ export const createPopup = (position, menu, element) => {
     div.style.top = (position.y) + 'px';
     
     document.body.appendChild(div);
-
-    div.onclick = function() {
-
+    
+    window.addEventListener("click", function() {
         if (div != null && div.parentNode == document.body) {
             document.body.removeChild(div);
             div = null;
         }
-      
-    }
+    });
 
 } 
