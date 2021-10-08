@@ -851,6 +851,6 @@ function createTree(div, backColor, contextMenu, callbacks) {
         }
     });
 
-    return tree;dsds
+    return tree;
 
 }
