@@ -119,7 +119,7 @@ export const createMenu = (editor) => {
             {
             text: "Edit URL",
             action: function(element, position) {
-                var linkWindow = window.open("", "Link Window", `top=${position.y + window.screenTop + 30},left=${window.screenLeft + position.x},width=200,height=4`);
+                var linkWindow = window.open("", "Link Window", `top=${position.y + window.screenTop + 30},left=${window.screenLeft + position.x},width=200,height=40`);
         
                 createLinkSelection(linkWindow, linkWindow.document, element.href);
         
