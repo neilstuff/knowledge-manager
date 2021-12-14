@@ -41,7 +41,7 @@ export const transformToEditor = editor => {
 
         for (const button of toolbarButtons) {
             const active = document.queryCommandState(button.dataset.commandId);
-
+          
             button.classList.toggle('active', active);
 
         }
@@ -50,12 +50,22 @@ export const transformToEditor = editor => {
 
         for (const input of inputButtons) {
             const value = document.queryCommandValue(input.dataset.commandId);
+
             input.value = rgbToHex(value);
+
+        }
+
+        const selectButtons = toolbar.querySelectorAll('select[data-command-id]');
+
+        for (const select of selectButtons) {
+            console.log(select.dataset.commandId, document.queryCommandValue(select.dataset.commandId));
+
+            const value = document.queryCommandValue(select.dataset.commandId);
+            select.value = value;
         }
 
     };
 
-    
     var menu = createMenu(editor);
 
     const contextMenu = (e) => {
@@ -85,6 +95,7 @@ export const transformToEditor = editor => {
     editor.addEventListener('keydown', updateActiveState);
     editor.addEventListener('keyup', updateActiveState);
     editor.addEventListener('click', updateActiveState);
+
     editor.addEventListener('input', e => {
 
         if (typeof editor.onChange === 'function') {
