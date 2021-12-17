@@ -29,6 +29,9 @@ export const transformToEditor = editor => {
 
     // Set default paragraph to <p>
     execCommand('defaultParagraphSeparator', 'p');
+    execCommand('formatblock', 'p');
+    execCommand('fontname', 'serif');
+    execCommand('fontSize', '3');
 
     // Create a toolbar
     const toolbar = createToolbar(editor.dataset, execCommand);
@@ -58,10 +61,23 @@ export const transformToEditor = editor => {
         const selectButtons = toolbar.querySelectorAll('select[data-command-id]');
 
         for (const select of selectButtons) {
-            console.log(select.dataset.commandId, document.queryCommandValue(select.dataset.commandId));
-
+ 
             const value = document.queryCommandValue(select.dataset.commandId);
-            select.value = value;
+            console.log(select.dataset.commandId, "'" + value + "'");
+
+            if (value.length > 0) {
+                select.value = value;
+            } else if (value.length == 0) {       
+                if (select.dataset.commandId == "formatblock") {
+                    select.value = "p";
+                } else if (select.dataset.commandId == "fontname") {
+                    select.value = "serif";
+                } else if (select.dataset.commandId == "fontSize") {
+                    select.value = "3";
+                }
+
+            }
+
         }
 
     };

@@ -28,12 +28,12 @@ export const createToolbar = (options, execCommand) => {
                 'formatblock',
                 'Styles', [
                     { value: 'p', text: 'Paragraph', selected: true },
-                    { value: 'h1', text: 'Title 1' },
-                    { value: 'h2', text: 'Title 2' },
-                    { value: 'h3', text: 'Title 3' },
-                    { value: 'h4', text: 'Title 4' },
-                    { value: 'h5', text: 'Title 5' },
-                    { value: 'h6', text: 'Title 6' },
+                    { value: 'h1', text: 'Title - 1' },
+                    { value: 'h2', text: 'Title - 2' },
+                    { value: 'h3', text: 'Title - 3' },
+                    { value: 'h4', text: 'Title - 4' },
+                    { value: 'h5', text: 'Title - 5' },
+                    { value: 'h6', text: 'Title - 6' },
                     { value: 'pre', text: 'Preformatted' },
                     { value: 'blockquote', text: 'Quote' }
                 ],
@@ -67,11 +67,13 @@ export const createToolbar = (options, execCommand) => {
             createSelect(
                 'fontSize',
                 'Size', [
-                    { value: '1', text: 'Tiny' },
-                    { value: '2', text: 'Small' },
-                    { value: '3', text: 'Normal', selected: true },
-                    { value: '4', text: 'Big' },
-                    { value: '7', text: 'Huge' },
+                    { value: '1', text: 'Font Size - 1' },
+                    { value: '2', text: 'Font Size - 2' },
+                    { value: '3', text: 'Font Size - 3', selected: true },
+                    { value: '4', text: 'Font Size - 4' },
+                    { value: '5', text: 'Font Size - 5' },
+                    { value: '6', text: 'Font Size - 6' },
+                    { value: '7', text: 'Font Size - 7' },
                 ],
                 execCommand
             )
@@ -311,4 +313,5 @@ export const createToolbar = (options, execCommand) => {
     }
 
     return toolbar;
+
 };
