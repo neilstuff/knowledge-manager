@@ -13,6 +13,12 @@ const rgbToHex = color => {
     return digits[1] + '#' + rgb.toString(16).padStart(6, '0');
 };
 
+const DEFAULTS = {
+    formatblock: "p",
+    fontname: "serif",
+    fontSize: "3"
+}
+
 export const transformToEditor = editor => {
 
     // Indicate that the element is editable
@@ -25,7 +31,7 @@ export const transformToEditor = editor => {
     const execCommand = (commandId, value) => {
         document.execCommand(commandId, false, value);
         editor.focus();
-     };
+    };
 
     // Set default paragraph to <p>
     execCommand('defaultParagraphSeparator', 'p');
@@ -44,7 +50,7 @@ export const transformToEditor = editor => {
 
         for (const button of toolbarButtons) {
             const active = document.queryCommandState(button.dataset.commandId);
-          
+
             button.classList.toggle('active', active);
 
         }
@@ -61,21 +67,14 @@ export const transformToEditor = editor => {
         const selectButtons = toolbar.querySelectorAll('select[data-command-id]');
 
         for (const select of selectButtons) {
- 
+
             const value = document.queryCommandValue(select.dataset.commandId);
             console.log(select.dataset.commandId, "'" + value + "'");
 
             if (value.length > 0) {
                 select.value = value;
-            } else if (value.length == 0) {       
-                if (select.dataset.commandId == "formatblock") {
-                    select.value = "p";
-                } else if (select.dataset.commandId == "fontname") {
-                    select.value = "serif";
-                } else if (select.dataset.commandId == "fontSize") {
-                    select.value = "3";
-                }
-
+            } else if (value.length == 0 && select.dataset.commandId in DEFAULTS) {
+                select.value = DEFAULTS[select.dataset.commandId];
             }
 
         }
@@ -104,7 +103,7 @@ export const transformToEditor = editor => {
             element = element.parentElement
         } while (element != null && element != editor);
 
- 
+
 
     };
 
@@ -115,7 +114,7 @@ export const transformToEditor = editor => {
     editor.addEventListener('input', e => {
 
         if (typeof editor.onChange === 'function') {
-           editor.onChange(editor.innerHTML);
+            editor.onChange(editor.innerHTML);
         }
 
     });
