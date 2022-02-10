@@ -3,8 +3,7 @@ import { createLinkSelection } from './utilities';
 export const createMenu = (editor) => {
 
     return {
-        TD:  [
-                {
+        TD: [{
                 text: "Delete Table",
                 action: function(element, position) {
                     var node = element.parentNode;
@@ -115,70 +114,84 @@ export const createMenu = (editor) => {
             }
         ],
 
-        A:  [
+        A: [{
+                text: "Edit URL",
+                action: function(element, position) {
+                    var linkWindow = window.open("", "Link Window", `top=${position.y + window.screenTop + 30},left=${window.screenLeft + position.x},width=200,height=40`);
+
+                    createLinkSelection(linkWindow, linkWindow.document, element.href);
+
+                    linkWindow.addEventListener("blur", (e) => {
+                        linkWindow.close();
+                    });
+
+                    linkWindow.document.getElementById("link-value").addEventListener("keydown", (e) => {
+                        if (e.key === 'Enter') {
+                            element.href = linkWindow.document.getElementById("link-value").value;
+
+                            linkWindow.close();
+
+                        }
+
+                    });
+
+                    editor.focus();
+
+                    editor.onChange(editor.innerHTML);
+
+                }
+
+            },
             {
-            text: "Edit URL",
-            action: function(element, position) {
-                var linkWindow = window.open("", "Link Window", `top=${position.y + window.screenTop + 30},left=${window.screenLeft + position.x},width=200,height=40`);
-        
-                createLinkSelection(linkWindow, linkWindow.document, element.href);
-        
-                linkWindow.addEventListener("blur", (e) => {
-                    linkWindow.close();
-                });
-        
-                linkWindow.document.getElementById("link-value").addEventListener("keydown", (e) => {
-                    if (e.key === 'Enter') {
-                        element.href = linkWindow.document.getElementById("link-value").value;
+                text: "Edit Text",
+                action: function(element, position) {
+                    var linkWindow = window.open("", "Link Window", `top=${position.y + window.screenTop + 30},left=${window.screenLeft + position.x},width=200,height=4`);
 
+                    createLinkSelection(linkWindow, linkWindow.document, element.text);
+
+                    linkWindow.addEventListener("blur", (e) => {
                         linkWindow.close();
-        
-                     }
-        
-                });
+                    });
 
-                editor.focus();
+                    linkWindow.document.getElementById("link-value").addEventListener("keydown", (e) => {
+                        if (e.key === 'Enter') {
+                            element.text = linkWindow.document.getElementById("link-value").value;
 
-                editor.onChange(editor.innerHTML);
+                            linkWindow.close();
 
-            }
+                        }
 
-        },
-        {
-            text: "Edit Text",
-            action: function(element, position) {              
-                var linkWindow = window.open("", "Link Window", `top=${position.y + window.screenTop + 30},left=${window.screenLeft + position.x},width=200,height=4`);
-        
-                createLinkSelection(linkWindow, linkWindow.document, element.text);
-        
-                linkWindow.addEventListener("blur", (e) => {
-                    linkWindow.close();
-                });
-        
-                linkWindow.document.getElementById("link-value").addEventListener("keydown", (e) => {
-                    if (e.key === 'Enter') {
-                        element.text = linkWindow.document.getElementById("link-value").value;
- 
-                        linkWindow.close();
-        
-                     }
-        
-                });
+                    });
 
-                editor.focus();
+                    editor.focus();
 
-                editor.onChange(editor.innerHTML);
+                    editor.onChange(editor.innerHTML);
+
+                }
+
+            },
+            {
+                text: "Open URL",
+                action: function(element, position) {
+                    window.api.openUrl(element.href);
+                }
 
             }
+        ],
+        P: [{
+                text: "Cut",
+                action: function(element, position) {}
+            },
+            {
+                text: "Copy",
+                action: function(element, position) {}
+            },
+            {
+                text: "Paste",
+                action: function(element, position) {}
+            },
+        ]
 
-        },
-        {
-            text: "Open URL",
-            action: function(element, position) {              
-                window.api.openUrl(element.href);
-            }
-
-        }]
     }
 
 }

@@ -92,16 +92,22 @@ export const transformToEditor = editor => {
         var element = document.elementFromPoint(e.x + 1, e.y + 1);
 
         do {
-            if (element.tagName in menu) {
-                var items = menu[element.tagName];
+            console.log(element.tagName);
 
+            Object.keys(menu)
+
+            if (element.tagName in menu) {
+                console.log(element.tagName, "IN menu");
+                var items = menu[element.tagName];
+                console.log(items);
                 const popup = createPopup(cursor, items, element);
 
                 break;
 
             }
             element = element.parentElement
-        } while (element != null && element != editor);
+        }
+        while (element != null && element != editor);
 
 
 
