@@ -39,7 +39,7 @@
         "mime": "^2.0.4"
     },
     "devDependencies": {
-        "electron": "^15.1.1",
+        "electron": "^17.0.0",
         "electron-builder": "^22.11.7",
         "node": "^16.10.0"
     },

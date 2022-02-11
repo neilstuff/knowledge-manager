@@ -1,15 +1,22 @@
 import { TOOLBAR_ITEM } from './constants';
 
-export const createInput = (commandId, title, type, execCommand) => {
-  const input = document.createElement('input');
+export const createInput = (commandId, title, type, className, value, execCommand) => {
+    const div = document.createElement('div');
+    div.title = title;
+    div.classList.add(className);
 
-  input.dataset.commandId = commandId;
-  input.className = TOOLBAR_ITEM;
-  input.title = title;
-  input.type = type;
+    const input = document.createElement('input');
 
-  input.addEventListener('change', e => execCommand(commandId, e.target.value));
+    input.dataset.commandId = commandId;
+    input.classList.add(TOOLBAR_ITEM);
+    input.title = title;
+    input.type = type;
+    input.value = value;
 
-  return input;
-  
+    input.addEventListener('change', e => execCommand(commandId, e.target.value));
+
+    div.appendChild(input);
+
+    return div;
+
 };

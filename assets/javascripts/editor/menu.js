@@ -1,6 +1,6 @@
 import { createLinkSelection } from './utilities';
 
-export const createMenu = (editor) => {
+export const createMenu = (editor, execCommand) => {
 
     return {
         TD: [{
@@ -117,7 +117,7 @@ export const createMenu = (editor) => {
         A: [{
                 text: "Edit URL",
                 action: function(element, position) {
-                    var linkWindow = window.open("", "Link Window", `top=${position.y + window.screenTop + 30},left=${window.screenLeft + position.x},width=200,height=40`);
+                    var linkWindow = window.open("", "Link Window", `frame=false,top=${position.y + window.screenTop + 30},left=${window.screenLeft + position.x},width=200,height=40`);
 
                     createLinkSelection(linkWindow, linkWindow.document, element.href);
 
@@ -145,7 +145,7 @@ export const createMenu = (editor) => {
             {
                 text: "Edit Text",
                 action: function(element, position) {
-                    var linkWindow = window.open("", "Link Window", `top=${position.y + window.screenTop + 30},left=${window.screenLeft + position.x},width=200,height=4`);
+                    var linkWindow = window.open("", "Link Window", `frame=false,top=${position.y + window.screenTop + 30},left=${window.screenLeft + position.x},width=200,height=4`);
 
                     createLinkSelection(linkWindow, linkWindow.document, element.text);
 
@@ -180,7 +180,10 @@ export const createMenu = (editor) => {
         ],
         P: [{
                 text: "Cut",
-                action: function(element, position) {}
+                action: function(element, position) {
+                    editor.focus();
+                    editor.onChange(editor.innerHTML);
+                }
             },
             {
                 text: "Copy",

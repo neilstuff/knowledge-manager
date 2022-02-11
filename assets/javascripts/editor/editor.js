@@ -81,7 +81,7 @@ export const transformToEditor = editor => {
 
     };
 
-    var menu = createMenu(editor);
+    var menu = createMenu(editor, execCommand);
 
     const contextMenu = (e) => {
         var cursor = {
