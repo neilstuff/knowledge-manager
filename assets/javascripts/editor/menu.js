@@ -181,19 +181,203 @@ export const createMenu = (editor, execCommand) => {
         P: [{
                 text: "Cut",
                 action: function(element, position) {
+                    execCommand("cut");
                     editor.focus();
                     editor.onChange(editor.innerHTML);
                 }
             },
             {
                 text: "Copy",
-                action: function(element, position) {}
+                action: function(element, position) {
+                    execCommand("copy");
+                    editor.focus();
+                    editor.onChange(editor.innerHTML);
+                }
             },
             {
                 text: "Paste",
-                action: function(element, position) {}
+                action: function(element, position) {
+                    execCommand("paste");
+                    editor.focus();
+                    editor.onChange(editor.innerHTML);
+                }
             },
-        ]
+        ],
+        H1: [{
+                text: "Cut",
+                action: function(element, position) {
+                    execCommand("cut");
+                    editor.focus();
+                    editor.onChange(editor.innerHTML);
+                }
+            },
+            {
+                text: "Copy",
+                action: function(element, position) {
+                    execCommand("copy");
+                    editor.focus();
+                    editor.onChange(editor.innerHTML);
+                }
+            },
+            {
+                text: "Paste",
+                action: function(element, position) {
+                    execCommand("paste");
+                    editor.focus();
+                    editor.onChange(editor.innerHTML);
+                }
+            },
+        ],
+        H2: [{
+                text: "Cut",
+                action: function(element, position) {
+                    execCommand("cut");
+                    editor.focus();
+                    editor.onChange(editor.innerHTML);
+                }
+            },
+            {
+                text: "Copy",
+                action: function(element, position) {
+                    execCommand("copy");
+                    editor.focus();
+                    editor.onChange(editor.innerHTML);
+                }
+            },
+            {
+                text: "Paste",
+                action: function(element, position) {
+                    execCommand("paste");
+                    editor.focus();
+                    editor.onChange(editor.innerHTML);
+                }
+            },
+        ],
+        H3: [{
+                text: "Cut",
+                action: function(element, position) {
+                    execCommand("cut");
+                    editor.focus();
+                    editor.onChange(editor.innerHTML);
+                }
+            },
+            {
+                text: "Copy",
+                action: function(element, position) {
+                    execCommand("copy");
+                    editor.focus();
+                    editor.onChange(editor.innerHTML);
+                }
+            },
+            {
+                text: "Paste",
+                action: function(element, position) {
+                    execCommand("paste");
+                    editor.focus();
+                    editor.onChange(editor.innerHTML);
+                }
+            },
+        ],
+        H4: [{
+                text: "Cut",
+                action: function(element, position) {
+                    execCommand("cut");
+                    editor.focus();
+                    editor.onChange(editor.innerHTML);
+                }
+            },
+            {
+                text: "Copy",
+                action: function(element, position) {
+                    execCommand("copy");
+                    editor.focus();
+                    editor.onChange(editor.innerHTML);
+                }
+            },
+            {
+                text: "Paste",
+                action: function(element, position) {
+                    execCommand("paste");
+                    editor.focus();
+                    editor.onChange(editor.innerHTML);
+                }
+            },
+        ],
+        H5: [{
+                text: "Cut",
+                action: function(element, position) {
+                    execCommand("cut");
+                    editor.focus();
+                    editor.onChange(editor.innerHTML);
+                }
+            },
+            {
+                text: "Copy",
+                action: function(element, position) {
+                    execCommand("copy");
+                    editor.focus();
+                    editor.onChange(editor.innerHTML);
+                }
+            },
+            {
+                text: "Paste",
+                action: function(element, position) {
+                    execCommand("paste");
+                    editor.focus();
+                    editor.onChange(editor.innerHTML);
+                }
+            },
+        ],
+        QUOTE: [{
+                text: "Cut",
+                action: function(element, position) {
+                    execCommand("cut");
+                    editor.focus();
+                    editor.onChange(editor.innerHTML);
+                }
+            },
+            {
+                text: "Copy",
+                action: function(element, position) {
+                    execCommand("copy");
+                    editor.focus();
+                    editor.onChange(editor.innerHTML);
+                }
+            },
+            {
+                text: "Paste",
+                action: function(element, position) {
+                    execCommand("paste");
+                    editor.focus();
+                    editor.onChange(editor.innerHTML);
+                }
+            },
+        ],
+        PRE: [{
+                text: "Cut",
+                action: function(element, position) {
+                    execCommand("cut");
+                    editor.focus();
+                    editor.onChange(editor.innerHTML);
+                }
+            },
+            {
+                text: "Copy",
+                action: function(element, position) {
+                    execCommand("copy");
+                    editor.focus();
+                    editor.onChange(editor.innerHTML);
+                }
+            },
+            {
+                text: "Paste",
+                action: function(element, position) {
+                    execCommand("paste");
+                    editor.focus();
+                    editor.onChange(editor.innerHTML);
+                }
+            },
+        ],
 
     }
 
