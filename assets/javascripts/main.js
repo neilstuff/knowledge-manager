@@ -295,7 +295,7 @@ $(async() => {
 
         filename = null;
 
-        $('#filename').html('-&nbsp[Untitled]');
+        $('#filename').html('&nbsp[Untitled]');
 
         editors[0].setHTML("");
 
