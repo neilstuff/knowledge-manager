@@ -182,10 +182,10 @@ $.fn.Join = (childNodes, html, level) => {
 }
 
 $(async() => {
-     
+
     document.addEventListener('dragover', event => event.preventDefault());
     document.addEventListener('drop', event => event.preventDefault());
-    
+
     $(document).on('click', 'a[href^="http"]', function(event) {
         event.preventDefault();
 
@@ -194,7 +194,7 @@ $(async() => {
         }
 
     });
- 
+
     document.querySelectorAll('[data-tiny-editor]').forEach(editor => {
         transformToEditor(editor);
 
@@ -202,14 +202,14 @@ $(async() => {
 
         editor.onChange = (html) => {
 
-           if (tree != null & tree.selectedNode != null) {
-    
+            if (tree != null & tree.selectedNode != null) {
+
                 documents[tree.selectedNode.id] = html;
             }
-    
+
         }
 
-     });
+    });
 
     $("#window-minimize").on('click', async(e) => {
 
@@ -253,7 +253,7 @@ $(async() => {
 
             $(this).Load(filepath);
             filename = filepath;
-            $('#filename').text(`- ${filepath}`);
+            $('#filename').text(`${filepath}`);
 
         }
 
@@ -270,21 +270,21 @@ $(async() => {
         if (!result.canceled) {
             filename = result.filePath;
 
-            $('#filename').text(`- ${filename}`);
+            $('#filename').text(`${filename}`);
 
-            zipFile.generateAsync({type:"blob"}).then(async function (blob) { 
+            zipFile.generateAsync({ type: "blob" }).then(async function(blob) {
                 var reader = new FileReader();
 
                 reader.onloadend = function() {
                     window.api.fs().writeFile(filename, new Uint8Array(reader.result), () => console.log("Knowledge Saved"));
-    
+
                 }
-          
+
                 reader.readAsArrayBuffer(blob);
-            }, function (err) {
+            }, function(err) {
                 alert(err);
             });
-    
+
         }
 
     });
@@ -334,7 +334,7 @@ $(async() => {
             $('#print-area').html(text);
 
             window.api.printToPdf(result.filePath);
-            
+
         }, 100);
 
 
@@ -498,7 +498,7 @@ $(async() => {
     let paneSep = $("#separator")[0];
 
     paneSep.sdrag(function(el, pageX, startX, fix) {
-        let leftPaneWidth = $("#separator").offset().left - 56;
+        let leftPaneWidth = $("#separator").offset().left - 8;
         let rightPaneLeft = $("#separator").offset().left + 9;
 
         $("#container").width(leftPaneWidth + "px");

@@ -198,26 +198,25 @@
                 <img src="assets/images/idea.svg" style="top:-5px; width:34px; height:34px;"></img>
             </div>
 
-            <div id="toolbar" style="position: absolute; top:5px; right:0px; padding-left:5px; height:30px; background-color:white;">
-                <button class="button fas fa-minus fa-1x top-icon" id="window-minimize" style="-webkit-app-region: no-drag; margin-left:2px; font-size:12px; width:18px; height:18px;"></button>
-                <button class="button far fa-square fa-1x top-icon" id="window-maximize" style="-webkit-app-region: no-drag; margin-left:2px; font-size:12px; width:18px; height:18px;"></button>
-                <button class="button fas fa-times fa-1x top-icon" id="quit" style="-webkit-app-region: no-drag; margin-left:2px; font-size:12px; width:18px; height:18px;"></button>
+            <div id="toolbar" style="position: absolute; top:0px; right:0px; width:300px; padding-left:5px; height:30px; background-color:white;">
+                <div style="font-size:18px; position:absolute; top:0px;  right:5px;">
+                    <button class="button fas fa-minus fa-1x top-icon" id="window-minimize" style="-webkit-app-region: no-drag; margin-left:2px; font-size:12px; width:18px; height:18px;"></button>
+                    <button class="button far fa-square fa-1x top-icon" id="window-maximize" style="-webkit-app-region: no-drag; margin-left:2px; font-size:12px; width:18px; height:18px;"></button>
+                    <button class="button fas fa-times fa-1x top-icon" id="quit" style="-webkit-app-region: no-drag; margin-left:2px; font-size:12px; width:18px; height:18px;"></button>
+                </div>
+                <div style="font-size:18px; position:absolute; top:10px; right:100px;">
+                    <a id="new" style="-webkit-app-region: no-drag; " class="far fa-file fa-1x bottom-icon menu-item"></a>
+                    <a id="open" style="-webkit-app-region: no-drag; margin-left:10px;" class="far fa-folder-open fa-1x bottom-icon menu-item"></a>
+                    <a id="save" style="-webkit-app-region: no-drag; margin-left:10px;" class="far fa-save fa-1x bottom-icon menu-item"></a>
+                    <a id="print" style="-webkit-app-region: no-drag; margin-left:10px;" class="fa fa-print fa-1x bottom-icon menu-item"></a>
+                    <a id="format" style="-webkit-app-region: no-drag;" class="fa fa-pencil-square-o fa-1x bottom-icon menu-item"></a>
+                    <a id="help" style="-webkit-app-region: no-drag;" class="far fa-question-circle fa-1x bottom-icon menu-item"></a>
+                </div>
+
             </div>
         </div>
 
-        <div style="position:absolute; top:40px; left:10px; width:35px; bottom:10px; border: 1px solid rgba(0,0,0, 0.2); padding-top:10px; font-size:18px;">
-            <a id="new" style="position:absolute; left:10px;" class="far fa-file fa-1x bottom-icon menu-item"></a>
-            <p style="font-size: 8px;">&nbsp;</p>
-            <a id="open" style="position:absolute; left:10px;" class="far fa-folder-open fa-1x bottom-icon menu-item"></a>
-            <p style="font-size: 10px;">&nbsp;</p>
-            <a id="save" style="position:absolute; left:10px;" class="far fa-save fa-1x bottom-icon menu-item"></a>
-            <p style="font-size: 12px;">&nbsp;</p>
-            <a id="print" style="position:absolute; left:10px;" class="fa fa-print fa-1x bottom-icon menu-item"></a>
-            <p style="font-size: 12px; ">&nbsp;</p>
-            <a id="format" style="position:absolute; left:10px;" class="fa fa-pencil-square-o fa-1x bottom-icon menu-item"></a>
-            <a id="help" style="position:absolute; left:10px; bottom:10px;" class="far fa-question-circle fa-1x bottom-icon menu-item"></a>
-        </div>
-        <div id="container" style="position:absolute; top:40px; left:55px; width:280px; bottom:10px; border: 1px solid rgba(0,0,0, 0.2); overflow:auto;">
+        <div id="container" style="position:absolute; top:40px; left:10px; width:328px; bottom:10px; border: 1px solid rgba(0,0,0, 0.2); overflow:auto;">
             <div id="placeholder" style="position:absolute; display:inline-block; top:10px; left:10px; right:10px; bottom:10px;  font-size:12px; ">
             </div>
         </div>
