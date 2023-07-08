@@ -22,7 +22,7 @@ const createSeparator = () => {
     return separator;
 };
 
-export const createToolbar = (options, execCommand) => {
+export const createToolbar = (options, editor, execCommand) => {
     const toolbar = document.createElement('div');
     toolbar.className = '__toolbar';
 
@@ -305,6 +305,7 @@ export const createToolbar = (options, execCommand) => {
                 'insertTable',
                 'Insert Image',
                 createIcon('fas fa-table'),
+                editor,
                 execCommand
             )
         );

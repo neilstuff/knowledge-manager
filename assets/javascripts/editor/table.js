@@ -1,7 +1,7 @@
 import { BEFORE_END, TOOLBAR_ITEM } from './constants';
 import { cumulativeOffset } from './utilities';
 
-export const createTable = (commandId, title, children, execCommand) => {
+export const createTable = (commandId, title, children, editor, execCommand) => {
 
     const selectDimensions = (e) => {
         var drawGrid = function(context) {
@@ -23,7 +23,6 @@ export const createTable = (commandId, title, children, execCommand) => {
         var position = cumulativeOffset(e.target);
         var canvas = document.createElement('canvas');
         var div = document.createElement("div");
-        var editor = document.getElementById("editor");
 
         div.style.position = "absolute";
         div.style.top = `${position.top + 30}px`;
@@ -31,8 +30,6 @@ export const createTable = (commandId, title, children, execCommand) => {
         div.style.width = '91px';
         div.style.height = '91px';
         div.style.zIndex = '2';
-        div.style.backgroundColor = 'rgb(255,255,255)';
-        div.style.border = "solid 1px rgba(0,0,0,0.2)";
 
         document.body.appendChild(div);
         document.body.addEventListener('mouseup', e => {
@@ -94,6 +91,8 @@ export const createTable = (commandId, title, children, execCommand) => {
             };
 
             div.remove();
+
+            editor.focus();
 
             let html = '<table align="center">';
 

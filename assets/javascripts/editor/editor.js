@@ -40,7 +40,7 @@ export const transformToEditor = editor => {
     execCommand('fontSize', '3');
 
     // Create a toolbar
-    const toolbar = createToolbar(editor.dataset, execCommand);
+    const toolbar = createToolbar(editor.dataset, editor, execCommand);
 
     editor.insertAdjacentElement(BEFORE_BEGIN, toolbar);
 
